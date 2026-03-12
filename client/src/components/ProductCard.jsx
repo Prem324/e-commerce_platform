@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, Star } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { toast } from 'react-toastify';
+import { formatCurrency } from '../utils/formatters';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
@@ -36,7 +37,7 @@ const ProductCard = ({ product }) => {
           <Link to={`/product/${product._id}`} className="text-gray-900 font-semibold truncate flex-1 hover:text-primary-600 transition-colors">
             {product.title}
           </Link>
-          <span className="text-primary-600 font-bold ml-2">${product.price}</span>
+          <span className="text-primary-600 font-bold ml-2">{formatCurrency(product.price)}</span>
         </div>
         
         <p className="text-gray-500 text-sm mb-3">{product.category}</p>
@@ -45,7 +46,7 @@ const ProductCard = ({ product }) => {
           <div className="flex items-center space-x-1 text-yellow-400">
             <Star size={14} fill="currentColor" />
             <span className="text-gray-700 text-sm font-medium">{product.ratings || 0}</span>
-            <span className="text-gray-400 text-xs text-sm">({product.numReviews})</span>
+            <span className="text-gray-400 text-xs">({product.numReviews})</span>
           </div>
           <button 
             onClick={handleAddToCart}
