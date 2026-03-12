@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ShieldCheck, Truck, Zap } from 'lucide-react';
+import { useProducts } from '../hooks/useProducts';
+import ProductCard from '../components/ProductCard';
 import AnimatedPage from '../components/AnimatedPage';
 
 const Home = () => {
+  const { products, loading } = useProducts();
   return (
     <AnimatedPage>
     <div className="space-y-24 pb-12">
@@ -63,6 +66,39 @@ const Home = () => {
            <h3 className="text-xl font-bold text-gray-900 mb-3">Instant Support</h3>
            <p className="text-gray-500 leading-relaxed">Dedicated concierge team available 24/7. Average response time under 5 minutes.</p>
         </div>
+      </section>
+
+      {/* Featured Products */}
+      <section>
+        <div className="flex justify-between items-end mb-10">
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Featured Products</h2>
+            <p className="text-gray-500">Handpicked items for your style</p>
+          </div>
+          <Link to="/products" className="text-primary-600 font-bold flex items-center hover:underline">
+            View All <ArrowRight size={16} className="ml-1" />
+          </Link>
+        </div>
+
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="card animate-pulse rounded-[32px]">
+                <div className="aspect-square bg-gray-100" />
+                <div className="p-6 space-y-4">
+                  <div className="h-5 bg-gray-100 rounded-full w-3/4" />
+                  <div className="h-4 bg-gray-100 rounded-full w-1/4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {products.slice(0, 4).map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
     </AnimatedPage>
