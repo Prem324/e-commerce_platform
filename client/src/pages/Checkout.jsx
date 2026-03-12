@@ -7,10 +7,14 @@ import { CreditCard, Truck, MapPin, CheckCircle, ArrowLeft } from 'lucide-react'
 import { formatCurrency } from '../utils/formatters';
 import AnimatedPage from '../components/AnimatedPage';
 
+import SuccessModal from '../components/SuccessModal';
+
 const Checkout = () => {
   const { cartItems, cartTotal, clearCart } = useCart();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [placedOrderId, setPlacedOrderId] = useState('');
   const [shippingAddress, setShippingAddress] = useState({
     address: '',
     city: '',
@@ -39,9 +43,9 @@ const Checkout = () => {
         totalPrice: cartTotal
       });
 
-      toast.success('Order placed successfully!');
+      setPlacedOrderId(data._id);
+      setShowSuccess(true);
       clearCart();
-      navigate('/dashboard');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Checkout failed');
     }
@@ -193,6 +197,12 @@ const Checkout = () => {
         </div>
       </div>
     </div>
+      
+      <SuccessModal 
+        isOpen={showSuccess} 
+        onClose={() => setShowSuccess(false)} 
+        orderId={placedOrderId}
+      />
     </AnimatedPage>
   );
 };
