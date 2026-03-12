@@ -8,17 +8,21 @@ const getProducts = async (req, res) => {
         const pageSize = 8;
         const page = Number(req.query.pageNumber) || 1;
 
-        const keyword = req.query.keyword
-            ? {
-                title: {
-                    $regex: req.query.keyword,
-                    $options: 'i',
-                },
-            }
-            : {};
+        const query = {};
+        
+        if (req.query.keyword) {
+            query.title = {
+                $regex: req.query.keyword,
+                $options: 'i',
+            };
+        }
 
-        const count = await Product.countDocuments({ ...keyword });
-        const products = await Product.find({ ...keyword })
+        if (req.query.category && req.query.category !== 'All') {
+            query.category = req.query.category;
+        }
+
+        const count = await Product.countDocuments({ ...query });
+        const products = await Product.find({ ...query })
             .limit(pageSize)
             .skip(pageSize * (page - 1))
             .lean();
@@ -116,10 +120,23 @@ const updateProduct = async (req, res) => {
     }
 };
 
+// @desc    Get unique categories
+// @route   GET /api/products/categories
+// @access  Public
+const getCategories = async (req, res) => {
+    try {
+        const categories = await Product.distinct('category');
+        res.json(categories);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     getProducts,
     getProductById,
     deleteProduct,
     createProduct,
     updateProduct,
+    getCategories,
 };

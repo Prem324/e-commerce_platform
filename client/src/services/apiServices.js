@@ -1,8 +1,11 @@
 import API from './api';
 
 export const productService = {
-    getProducts: (keyword = '', page = 1) => 
-        API.get(`/products?keyword=${keyword}&pageNumber=${page}`),
+    getProducts: (keyword = '', page = 1, category = '') => 
+        API.get(`/products?keyword=${keyword}&pageNumber=${page}&category=${category}`),
+    
+    getCategories: () =>
+        API.get('/products/categories'),
     
     getProductById: (id) => 
         API.get(`/products/${id}`),
