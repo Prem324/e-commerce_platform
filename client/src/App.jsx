@@ -11,6 +11,7 @@ import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -37,9 +38,7 @@ function App() {
             </Route>
           </Routes>
         </main>
-        <footer className="bg-white border-t py-8 text-center text-gray-500">
-          <p>&copy; 2026 MERN Shop. All rights reserved.</p>
-        </footer>
+        <Footer />
       </div>
     </Router>
   );

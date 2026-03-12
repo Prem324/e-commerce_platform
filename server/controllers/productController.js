@@ -20,7 +20,8 @@ const getProducts = async (req, res) => {
         const count = await Product.countDocuments({ ...keyword });
         const products = await Product.find({ ...keyword })
             .limit(pageSize)
-            .skip(pageSize * (page - 1));
+            .skip(pageSize * (page - 1))
+            .lean();
 
         res.json({ products, page, pages: Math.ceil(count / pageSize) });
     } catch (error) {
