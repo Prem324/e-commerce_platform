@@ -7,14 +7,24 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
+
+  // Debounce search term
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchTerm(keyword);
+      setPage(1);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [keyword]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const { data } = await API.get(`/products?keyword=${keyword}&pageNumber=${page}`);
+        const { data } = await API.get(`/products?keyword=${searchTerm}&pageNumber=${page}`);
         setProducts(data.products);
         setPages(data.pages);
       } catch (error) {
@@ -24,7 +34,7 @@ const ProductList = () => {
     };
 
     fetchProducts();
-  }, [keyword, page]);
+  }, [searchTerm, page]);
 
   return (
     <div>
