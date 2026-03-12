@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Star } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { toast } from 'react-toastify';
 import { formatCurrency } from '../utils/formatters';
+import StarRating from './StarRating';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
@@ -43,11 +44,7 @@ const ProductCard = ({ product }) => {
         <p className="text-gray-500 text-sm mb-3">{product.category}</p>
         
         <div className="flex items-center justify-between mt-auto">
-          <div className="flex items-center space-x-1 text-yellow-400">
-            <Star size={14} fill="currentColor" />
-            <span className="text-gray-700 text-sm font-medium">{product.ratings || 0}</span>
-            <span className="text-gray-400 text-xs">({product.numReviews})</span>
-          </div>
+          <StarRating rating={product.ratings} numReviews={product.numReviews} />
           <button 
             onClick={handleAddToCart}
             className="text-xs font-bold text-primary-600 uppercase tracking-wider hover:text-primary-700"
