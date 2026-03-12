@@ -52,7 +52,7 @@ const Checkout = () => {
     setLoading(false);
   };
 
-  if (cartItems.length === 0) {
+  if (cartItems.length === 0 && !showSuccess) {
     return (
       <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
         <h2 className="text-2xl font-bold mb-4 dark:text-white">No items to checkout</h2>
