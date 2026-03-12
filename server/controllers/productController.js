@@ -98,7 +98,7 @@ const createProduct = async (req, res) => {
 // @access  Private/Admin
 const updateProduct = async (req, res) => {
     try {
-        const { title, price, description, images, category, stock } = req.body;
+        const { title, price, description, images, image, category, stock } = req.body;
 
         const product = await Product.findById(req.params.id);
 
@@ -106,7 +106,12 @@ const updateProduct = async (req, res) => {
             product.title = title || product.title;
             product.price = price || product.price;
             product.description = description || product.description;
-            product.images = images || product.images;
+            
+            if (images) {
+                product.images = images;
+            } else if (image) {
+                product.images = [{ url: image }];
+            }
             product.category = category || product.category;
             product.stock = stock || product.stock;
 

@@ -9,6 +9,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     price: '',
@@ -17,6 +18,30 @@ const AdminDashboard = () => {
     stock: '',
     image: ''
   });
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await API.post('/upload', formData, config);
+      setFormData(prev => ({ ...prev, image: data.url }));
+      setUploading(false);
+      toast.success('Image uploaded to Cloudinary');
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+      toast.error('Image upload failed');
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -227,8 +252,31 @@ const AdminDashboard = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Image URL</label>
-                <input type="text" name="image" className="input" placeholder="https://..." value={formData.image} onChange={handleInputChange} />
+                <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Product Image</label>
+                <div className="flex flex-col space-y-4">
+                  <input 
+                    type="text" 
+                    name="image" 
+                    className="input" 
+                    placeholder="Enter image URL or upload below" 
+                    value={formData.image} 
+                    onChange={handleInputChange} 
+                  />
+                  <div className="relative">
+                    <input 
+                      type="file" 
+                      id="image-file"
+                      className="hidden" 
+                      onChange={uploadFileHandler} 
+                    />
+                    <label 
+                      htmlFor="image-file"
+                      className={`btn ${uploading ? 'btn-secondary' : 'btn-primary'} w-full flex items-center justify-center cursor-pointer py-2`}
+                    >
+                      {uploading ? 'Uploading to Cloudinary...' : 'Choose Local File'}
+                    </label>
+                  </div>
+                </div>
               </div>
 
               <div>
