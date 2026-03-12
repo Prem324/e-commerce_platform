@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import API from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { Package, MapPin, Calendar, CheckCircle, Clock } from 'lucide-react';
+import { Package, MapPin, Calendar, CheckCircle, Clock, Trash2 } from 'lucide-react';
+import { toast } from 'react-toastify';
 import { formatCurrency, formatDate } from '../utils/formatters';
 import OrderStatusBadge from '../components/OrderStatusBadge';
 import AnimatedPage from '../components/AnimatedPage';
@@ -24,6 +25,18 @@ const UserDashboard = () => {
 
     fetchOrders();
   }, []);
+
+  const handleDeleteOrder = async (id) => {
+    if (window.confirm('Are you sure you want to cancel this order?')) {
+      try {
+        await API.delete(`/orders/${id}`);
+        toast.success('Order cancelled successfully');
+        setOrders(orders.filter(order => order._id !== id));
+      } catch (error) {
+        toast.error(error.response?.data?.message || 'Failed to cancel order');
+      }
+    }
+  };
 
   return (
     <AnimatedPage>
@@ -88,6 +101,16 @@ const UserDashboard = () => {
                      <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold tracking-widest mb-2">Shipping to</p>
                      <p className="text-sm font-medium text-slate-900 dark:text-white">{order.shippingAddress.address}</p>
                      <p className="text-sm text-slate-500 dark:text-slate-400">{order.shippingAddress.city}, {order.shippingAddress.postalCode}</p>
+                     
+                     {order.orderStatus === 'Processing' && (
+                       <button
+                         onClick={() => handleDeleteOrder(order._id)}
+                         className="mt-6 flex items-center space-x-2 text-xs font-bold text-red-500 hover:text-red-600 transition-colors uppercase tracking-widest"
+                       >
+                         <Trash2 size={14} />
+                         <span>Cancel Order</span>
+                       </button>
+                     )}
                   </div>
                </div>
             </div>

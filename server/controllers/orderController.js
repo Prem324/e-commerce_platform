@@ -122,14 +122,28 @@ const updateOrderToDelivered = async (req, res) => {
 
 // @desc    Delete order
 // @route   DELETE /api/orders/:id
-// @access  Private/Admin
+// @access  Private
 const deleteOrder = async (req, res) => {
     try {
         const order = await Order.findById(req.params.id);
 
         if (order) {
-            await order.deleteOne();
-            res.json({ message: 'Order removed' });
+            // Check if user is admin or the owner
+            if (req.user.role === 'admin') {
+                await order.deleteOne();
+                return res.json({ message: 'Order removed by Admin' });
+            }
+
+            if (order.user.toString() === req.user._id.toString()) {
+                if (order.orderStatus === 'Processing') {
+                    await order.deleteOne();
+                    return res.json({ message: 'Order cancelled successfully' });
+                } else {
+                    return res.status(400).json({ message: 'Cannot cancel an order that is already ' + order.orderStatus });
+                }
+            }
+
+            res.status(401).json({ message: 'Not authorized to delete this order' });
         } else {
             res.status(404).json({ message: 'Order not found' });
         }
