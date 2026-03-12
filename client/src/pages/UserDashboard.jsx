@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import API from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { Package, MapPin, Calendar, CheckCircle, Clock } from 'lucide-react';
+import { formatCurrency, formatDate } from '../utils/formatters';
+import OrderStatusBadge from '../components/OrderStatusBadge';
 
 const UserDashboard = () => {
   const { user } = useAuth();
@@ -55,11 +57,11 @@ const UserDashboard = () => {
                   <div className="flex space-x-8">
                     <div>
                         <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Order Placed</p>
-                        <p className="text-sm font-bold text-gray-900">{new Date(order.createdAt).toLocaleDateString()}</p>
+                        <p className="text-sm font-bold text-gray-900">{formatDate(order.createdAt)}</p>
                     </div>
                     <div>
                         <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Total</p>
-                        <p className="text-sm font-bold text-gray-900">${order.totalPrice.toFixed(2)}</p>
+                        <p className="text-sm font-bold text-gray-900">{formatCurrency(order.totalPrice)}</p>
                     </div>
                   </div>
                   <div>
@@ -69,15 +71,8 @@ const UserDashboard = () => {
                </div>
                <div className="p-6 flex flex-col md:flex-row justify-between gap-6">
                   <div className="flex-grow">
-                     <div className="flex items-center space-x-2 mb-4">
-                        {order.orderStatus === 'Delivered' ? (
-                            <CheckCircle size={18} className="text-green-500" />
-                        ) : (
-                            <Clock size={18} className="text-blue-500" />
-                        )}
-                        <span className={`text-sm font-bold ${order.orderStatus === 'Delivered' ? 'text-green-600' : 'text-blue-600'}`}>
-                            {order.orderStatus}
-                        </span>
+                     <div className="mb-4">
+                        <OrderStatusBadge status={order.orderStatus} />
                      </div>
                      <div className="space-y-2">
                         {order.orderItems.map((item, idx) => (
