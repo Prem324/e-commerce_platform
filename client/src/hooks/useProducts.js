@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { productService } from '../services/apiServices';
 
-export const useProducts = (keyword = '', page = 1, category = '') => {
+export const useProducts = (keyword = '', page = 1, category = '', minPrice = '', maxPrice = '') => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [pages, setPages] = useState(1);
@@ -11,7 +11,7 @@ export const useProducts = (keyword = '', page = 1, category = '') => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                const { data } = await productService.getProducts(keyword, page, category);
+                const { data } = await productService.getProducts(keyword, page, category, minPrice, maxPrice);
                 setProducts(data.products);
                 setPages(data.pages);
             } catch (err) {
@@ -21,7 +21,7 @@ export const useProducts = (keyword = '', page = 1, category = '') => {
         };
 
         fetchProducts();
-    }, [keyword, page, category]);
+    }, [keyword, page, category, minPrice, maxPrice]);
 
     return { products, loading, pages, error };
 };

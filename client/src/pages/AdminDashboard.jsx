@@ -3,6 +3,7 @@ import API from '../services/api';
 import { toast } from 'react-toastify';
 import { Plus, Edit, Trash2, Package, Users, ShoppingCart, TrendingUp } from 'lucide-react';
 import AnimatedPage from '../components/AnimatedPage';
+import { formatCurrency } from '../utils/formatters';
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
@@ -143,7 +144,7 @@ const AdminDashboard = () => {
           </div>
           <div>
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Revenue</p>
-            <p className="text-2xl font-bold text-gray-900">$12,450</p>
+            <p className="text-2xl font-bold text-gray-900">{formatCurrency(845000)}</p>
           </div>
         </div>
         <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex items-center space-x-4">
@@ -188,7 +189,7 @@ const AdminDashboard = () => {
                   <td className="px-6 py-4 text-sm text-gray-400 font-mono">#{product._id.slice(-6).toUpperCase()}</td>
                   <td className="px-6 py-4 font-bold text-gray-900">{product.title}</td>
                   <td className="px-6 py-4 text-sm text-gray-600">{product.category}</td>
-                  <td className="px-6 py-4 font-bold text-primary-600">${product.price}</td>
+                  <td className="px-6 py-4 font-bold text-primary-600">{formatCurrency(product.price)}</td>
                   <td className="px-6 py-4">
                     <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${
                       product.stock > 10 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
@@ -242,8 +243,8 @@ const AdminDashboard = () => {
 
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Price ($)</label>
-                  <input type="number" name="price" className="input" placeholder="99.99" value={formData.price} onChange={handleInputChange} required />
+                  <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Price (₹)</label>
+                  <input type="number" name="price" className="input" placeholder="99,900" value={formData.price} onChange={handleInputChange} required />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Stock Count</label>

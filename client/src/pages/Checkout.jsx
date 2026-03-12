@@ -68,14 +68,14 @@ const Checkout = () => {
         Back to cart
       </button>
 
-      <h1 className="text-4xl font-bold text-gray-900 mb-12 tracking-tight">Checkout Details</h1>
+      <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-8 md:mb-12 tracking-tight">Checkout Details</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
         {/* Shipping Form */}
         <div>
-          <div className="bg-white p-10 rounded-[40px] border border-gray-100 shadow-xl shadow-gray-100/50 mb-8 relative overflow-hidden">
+          <div className="bg-white p-6 md:p-10 rounded-[32px] md:rounded-[40px] border border-gray-100 shadow-xl shadow-gray-100/50 mb-8 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-2 h-full bg-primary-600"></div>
-            <h2 className="text-2xl font-bold flex items-center mb-8">
+            <h2 className="text-xl md:text-2xl font-bold flex items-center mb-6 md:mb-8">
               <MapPin className="mr-3 text-primary-600" size={28} />
               Delivery Destination
             </h2>
@@ -154,8 +154,8 @@ const Checkout = () => {
 
         {/* Order Review */}
         <div className="lg:sticky lg:top-24 h-fit">
-          <div className="bg-gray-50 p-10 rounded-[40px] border border-gray-100 shadow-sm">
-            <h2 className="text-2xl font-bold mb-8 flex items-center">
+          <div className="bg-gray-50 p-6 md:p-10 rounded-[32px] md:rounded-[40px] border border-gray-100 shadow-sm">
+            <h2 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 flex items-center">
               <CreditCard className="mr-3 text-primary-600" size={28} />
               Review Your Order
             </h2>
@@ -184,9 +184,9 @@ const Checkout = () => {
                 <span>Shipping & Handling</span>
                 <span className="text-green-600 font-bold uppercase tracking-wider text-[10px] bg-green-50 px-2 py-1 rounded">Free</span>
               </div>
-              <div className="flex justify-between pt-6 border-t border-gray-200 decoration-primary-500 underline-offset-8">
-                <span className="text-2xl font-bold text-gray-900">Amount Due</span>
-                <span className="text-3xl font-bold text-primary-600 tracking-tight">{formatCurrency(cartTotal)}</span>
+              <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-4 pt-6 border-t border-gray-200">
+                <span className="text-xl md:text-2xl font-bold text-gray-900">Amount Due</span>
+                <span className="text-2xl md:text-3xl font-bold text-primary-600 tracking-tight">{formatCurrency(cartTotal)}</span>
               </div>
             </div>
           </div>

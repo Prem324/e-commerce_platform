@@ -10,15 +10,28 @@ const getProducts = async (req, res) => {
 
         const query = {};
         
-        if (req.query.keyword) {
-            query.title = {
-                $regex: req.query.keyword,
-                $options: 'i',
-            };
+        // Keyword Search (Title or Description)
+        if (req.query.keyword && req.query.keyword.trim() !== '') {
+            query.$or = [
+                { title: { $regex: req.query.keyword.trim(), $options: 'i' } },
+                { description: { $regex: req.query.keyword.trim(), $options: 'i' } }
+            ];
         }
 
-        if (req.query.category && req.query.category !== 'All') {
-            query.category = req.query.category;
+        // Category Filter
+        if (req.query.category && req.query.category.trim() !== '' && req.query.category !== 'All') {
+            query.category = { $regex: `^${req.query.category.trim()}$`, $options: 'i' };
+        }
+
+        // Price Filter
+        if (req.query.minPrice || req.query.maxPrice) {
+            query.price = {};
+            if (req.query.minPrice && req.query.minPrice.trim() !== '') {
+                query.price.$gte = Number(req.query.minPrice);
+            }
+            if (req.query.maxPrice && req.query.maxPrice.trim() !== '') {
+                query.price.$lte = Number(req.query.maxPrice);
+            }
         }
 
         const count = await Product.countDocuments({ ...query });
@@ -76,14 +89,15 @@ const createProduct = async (req, res) => {
         const { title, price, description, image, category, stock } = req.body;
 
         const product = new Product({
-            title: title || 'Sample Name',
+            title: title || 'New Artifact',
             price: price || 0,
             user: req.user._id,
-            images: [{ url: image || '/images/sample.jpg' }],
-            category: category || 'Sample Category',
+            images: [{ url: image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30' }],
+            category: category || 'General',
             stock: stock || 0,
-            numReviews: 0,
-            description: description || 'Sample Description',
+            ratings: (Math.random() * (5 - 3.5) + 3.5).toFixed(1),
+            numReviews: Math.floor(Math.random() * 100) + 10,
+            description: description || 'No detailed description available.',
         });
 
         const createdProduct = await product.save();

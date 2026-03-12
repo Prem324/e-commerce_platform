@@ -29,7 +29,7 @@ const Register = () => {
 
     try {
       await register(name, email, password);
-      toast.success('Account created successfully!');
+      toast.success('Account created successfully');
       navigate('/');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Registration failed');
@@ -38,100 +38,102 @@ const Register = () => {
 
   return (
     <AnimatedPage>
-    <div className="max-w-md mx-auto mt-12 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Create Account</h1>
-        <p className="text-gray-500 mt-2">Join us and start shopping today</p>
-      </div>
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-          <div className="relative">
-            <User className="absolute left-3 top-2.5 text-gray-400" size={20} />
-            <input
-              type="text"
-              name="name"
-              placeholder="John Doe"
-              className="input pl-10"
-              value={name}
-              onChange={handleChange}
-              required
-            />
-          </div>
+    <div className="max-w-md mx-auto mt-20 mb-20 px-4">
+      <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50">
+        <div className="text-center mb-10">
+          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Create Account</h1>
+          <p className="text-slate-500 mt-2 font-medium">Join us to start shopping</p>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-          <div className="relative">
-            <Mail className="absolute left-3 top-2.5 text-gray-400" size={20} />
-            <input
-              type="email"
-              name="email"
-              placeholder="name@example.com"
-              className="input pl-10"
-              value={email}
-              onChange={handleChange}
-              required
-            />
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
+            <div className="relative group">
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-600 transition-colors" size={18} />
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                className="input-field !pl-12"
+                value={name}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
-          <div className="relative">
-            <Lock className="absolute left-3 top-2.5 text-gray-400" size={20} />
-            <input
-              type="password"
-              name="password"
-              placeholder="••••••••"
-              className="input pl-10"
-              value={password}
-              onChange={handleChange}
-              required
-            />
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
+            <div className="relative group">
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-600 transition-colors" size={18} />
+              <input
+                type="email"
+                name="email"
+                placeholder="name@example.com"
+                className="input-field !pl-12"
+                value={email}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
-          <div className="relative">
-            <Lock className="absolute left-3 top-2.5 text-gray-400" size={20} />
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="••••••••"
-              className="input pl-10"
-              value={confirmPassword}
-              onChange={handleChange}
-              required
-            />
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">Password</label>
+            <div className="relative group">
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-600 transition-colors" size={18} />
+              <input
+                type="password"
+                name="password"
+                placeholder="••••••••"
+                className="input-field !pl-12"
+                value={password}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">Confirm Password</label>
+            <div className="relative group">
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-600 transition-colors" size={18} />
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="••••••••"
+                className="input-field !pl-12"
+                value={confirmPassword}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary w-full py-4 text-base font-bold"
+            disabled={loading}
+          >
+            {loading ? (
+              <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <>
+                <UserPlus size={18} />
+                <span>Sign Up</span>
+              </>
+            )}
+          </button>
+        </form>
+
+        <div className="mt-10 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm font-medium">
+            Already have an account?{' '}
+            <Link to="/login" className="text-primary-600 font-bold hover:underline">
+              Sign In
+            </Link>
+          </p>
         </div>
-
-        <button
-          type="submit"
-          className="btn btn-primary w-full flex items-center justify-center space-x-2 py-3"
-          disabled={loading}
-        >
-          {loading ? (
-            <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-          ) : (
-            <>
-              <UserPlus size={20} />
-              <span>Register Now</span>
-            </>
-          )}
-        </button>
-      </form>
-
-      <div className="mt-8 pt-6 border-t text-center">
-        <p className="text-gray-600">
-          Already have an account?{' '}
-          <Link to="/login" className="text-primary-600 font-bold hover:underline">
-            Sign In
-          </Link>
-        </p>
       </div>
     </div>
     </AnimatedPage>

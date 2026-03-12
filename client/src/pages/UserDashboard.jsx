@@ -56,7 +56,7 @@ const UserDashboard = () => {
           {orders.map((order) => (
             <div key={order._id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                <div className="bg-gray-50 px-6 py-4 border-b flex justify-between items-center">
-                  <div className="flex space-x-8">
+                  <div className="flex flex-wrap gap-x-8 gap-y-4">
                     <div>
                         <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Order Placed</p>
                         <p className="text-sm font-bold text-gray-900">{formatDate(order.createdAt)}</p>

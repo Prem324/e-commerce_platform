@@ -10,7 +10,7 @@ const products = [
   {
     title: 'Apple iPhone 15 Pro',
     description: 'The iPhone 15 Pro is the first iPhone to feature an aerospace-grade titanium design, using the same alloy that spacecraft use for missions to Mars.',
-    price: 999.99,
+    price: 134900,
     category: 'Electronics',
     stock: 20,
     ratings: 4.8,
@@ -20,17 +20,17 @@ const products = [
   {
     title: 'Sony WH-1000XM5',
     description: 'Industry-leading noise cancellation with two processors controlling eight microphones, and special driver units for high-resolution audio.',
-    price: 348.00,
+    price: 29900,
     category: 'Electronics',
     stock: 50,
     ratings: 4.9,
     numReviews: 85,
-    images: [{ url: 'https://images.unsplash.com/photo-1618366712277-7bc6eb904f47?q=80&w=2070' }]
+    images: [{ url: 'https://images.unsplash.com/photo-1755719401908-8612266b10c2?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0' }]
   },
   {
     title: 'Minimalist Leather Backpack',
     description: 'Handcrafted from premium full-grain leather, this backpack is designed for both style and functionality with a dedicated laptop compartment.',
-    price: 189.00,
+    price: 12499,
     category: 'Accessories',
     stock: 15,
     ratings: 4.7,
@@ -40,7 +40,7 @@ const products = [
   {
     title: 'Mechanical Gaming Keyboard',
     description: 'Customizable RGB lighting, tactile mechanical switches, and a durable aluminum frame for the ultimate gaming and typing experience.',
-    price: 129.99,
+    price: 10999,
     category: 'Electronics',
     stock: 30,
     ratings: 4.6,
@@ -50,33 +50,32 @@ const products = [
 ];
 
 const seedData = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI);
-        
-        // Find or create an admin user
-        let adminUser = await User.findOne({ role: 'admin' });
-        if (!adminUser) {
-            console.log('No admin user found. Creating dummy admin...');
-            adminUser = await User.create({
-                name: 'Admin User',
-                email: 'admin@example.com',
-                password: 'password123',
-                role: 'admin'
-            });
-        }
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
 
-        await Product.deleteMany();
-        console.log('Products deleted');
+    // Clear existing users and create admin
+    await User.deleteMany({ role: 'admin' });
+    console.log('Resetting admin user...');
 
-        const sampleProducts = products.map(p => ({ ...p, user: adminUser._id }));
-        await Product.insertMany(sampleProducts);
-        
-        console.log('Data Seeded Successfully');
-        process.exit();
-    } catch (error) {
-        console.error('Error seeding data:', error);
-        process.exit(1);
-    }
+    adminUser = await User.create({
+      name: process.env.ADMIN_NAME || 'Admin User',
+      email: process.env.ADMIN_EMAIL,
+      password: process.env.ADMIN_PASSWORD,
+      role: 'admin'
+    });
+
+    await Product.deleteMany();
+    console.log('Products deleted');
+
+    const sampleProducts = products.map(p => ({ ...p, user: adminUser._id }));
+    await Product.insertMany(sampleProducts);
+
+    console.log('Data Seeded Successfully');
+    process.exit();
+  } catch (error) {
+    console.error('Error seeding data:', error);
+    process.exit(1);
+  }
 };
 
 seedData();
