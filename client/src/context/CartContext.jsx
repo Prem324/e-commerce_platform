@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import API from '../services/api';
+import { cartService } from '../services/apiServices';
 import { useAuth } from './AuthContext';
 
 const CartContext = createContext();
@@ -9,13 +9,12 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Load cart from DB if user is logged in, otherwise from localStorage
   useEffect(() => {
     const fetchCart = async () => {
       if (user) {
         setLoading(true);
         try {
-          const { data } = await API.get('/cart');
+          const { data } = await cartService.getCart();
           setCartItems(data.items || []);
         } catch (error) {
           console.error('Error fetching cart:', error);
@@ -32,7 +31,6 @@ export const CartProvider = ({ children }) => {
     fetchCart();
   }, [user]);
 
-  // Save to localStorage if not logged in
   useEffect(() => {
     if (!user) {
       localStorage.setItem('cart', JSON.stringify(cartItems));
@@ -42,7 +40,7 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (product, quantity = 1) => {
     if (user) {
       try {
-        const { data } = await API.post('/cart', { productId: product._id, quantity });
+        const { data } = await cartService.addToCart(product._id, quantity);
         setCartItems(data.items);
       } catch (error) {
         console.error('Error adding to cart:', error);
@@ -51,10 +49,11 @@ export const CartProvider = ({ children }) => {
       setCartItems((prev) => {
         const existItem = prev.find((x) => x.product === product._id);
         if (existItem) {
-          return prev.map((x) =>
+          const newItems = prev.map((x) =>
             x.product === product._id ? { ...x, quantity: x.quantity + quantity } : x
           );
-        } else {
+          return newItems.filter(item => item.quantity > 0);
+        } else if (quantity > 0) {
           return [...prev, { 
             product: product._id, 
             quantity, 
@@ -63,6 +62,7 @@ export const CartProvider = ({ children }) => {
             image: product.images[0]?.url 
           }];
         }
+        return prev;
       });
     }
   };
@@ -70,7 +70,7 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = async (productId) => {
     if (user) {
       try {
-        const { data } = await API.delete(`/cart/${productId}`);
+        const { data } = await cartService.removeFromCart(productId);
         setCartItems(data.items);
       } catch (error) {
         console.error('Error removing from cart:', error);
