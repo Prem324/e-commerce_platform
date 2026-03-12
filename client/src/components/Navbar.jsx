@@ -15,15 +15,15 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-b sticky top-0 z-50">
+    <nav className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="text-2xl font-bold text-primary-600 tracking-tight">
           MERN<span className="text-gray-900">Shop</span>
         </Link>
 
         <div className="hidden md:flex items-center space-x-8">
-          <Link to="/products" className="text-gray-600 hover:text-primary-600 font-medium">Products</Link>
-          <Link to="/" className="text-gray-600 hover:text-primary-600 font-medium">Categories</Link>
+          <Link to="/products" className="text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200">Products</Link>
+          <Link to="/" className="text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200">Categories</Link>
         </div>
 
         <div className="flex items-center space-x-4">
