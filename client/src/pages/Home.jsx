@@ -51,12 +51,12 @@ const Home = () => {
             { icon: <ShieldCheck size={28} />, title: "Secure Checkout", desc: "Your data is protected by industry-standard encryption." },
             { icon: <Zap size={28} />, title: "Fast Support", desc: "Our team is here to help you 24/7 with any inquiries." }
           ].map((feature, i) => (
-            <div key={i} className="bg-white p-10 rounded-3xl border border-slate-100 text-center hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div key={i} className="bg-white dark:bg-slate-900 p-10 rounded-3xl border border-slate-100 dark:border-slate-800 text-center hover:shadow-lg transition-transform hover:-translate-y-1">
+              <div className="w-16 h-16 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-              <p className="text-slate-500 leading-relaxed">{feature.desc}</p>
+              <h3 className="text-xl font-bold mb-3 dark:text-white">{feature.title}</h3>
+              <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{feature.desc}</p>
             </div>
           ))}
         </section>
@@ -65,8 +65,8 @@ const Home = () => {
         <section>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 md:mb-12 gap-4">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-1 md:mb-2">Featured Products</h2>
-              <p className="text-slate-500">Hand-picked items from our latest collection</p>
+              <h2 className="text-2xl md:text-3xl font-bold mb-1 md:mb-2 dark:text-white">Featured Products</h2>
+              <p className="text-slate-500 dark:text-slate-400">Hand-picked items from our latest collection</p>
             </div>
             <Link to="/products" className="text-primary-600 font-bold flex items-center gap-2 hover:underline">
               View All <ArrowRight size={18} />
@@ -88,17 +88,6 @@ const Home = () => {
           )}
         </section>
 
-        {/* Minimal Newsletter */}
-        <section className="bg-slate-50 rounded-[2.5rem] p-12 md:p-24 text-center">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Join our newsletter</h2>
-            <p className="text-slate-500 mb-10 text-lg">Get updates on new collections and exclusive offers directly in your inbox.</p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input type="email" placeholder="Email address" className="input-field flex-grow" />
-              <button className="btn btn-primary px-8">Subscribe</button>
-            </div>
-          </div>
-        </section>
       </div>
     </AnimatedPage>
   );

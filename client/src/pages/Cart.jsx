@@ -20,22 +20,22 @@ const Cart = () => {
     <AnimatedPage>
     <div className="max-w-7xl mx-auto pb-24 px-4">
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-8 md:mb-12 mt-4 md:mt-8 gap-4">
-        <h1 className="text-2xl md:text-4xl font-bold text-slate-900 tracking-tight flex flex-wrap items-center gap-2 md:gap-4">
+        <h1 className="text-2xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight flex flex-wrap items-center gap-2 md:gap-4">
           Shopping Cart
-          <span className="text-base md:text-lg font-normal text-slate-400">({cartItems.length} items)</span>
+          <span className="text-base md:text-lg font-normal text-slate-400 dark:text-slate-500">({cartItems.length} items)</span>
         </h1>
-        <Link to="/products" className="text-sm font-bold text-primary-600 hover:underline hidden md:block">
+        <Link to="/products" className="text-sm font-bold text-primary-600 dark:text-primary-400 hover:underline hidden md:block">
           Continue Shopping
         </Link>
       </div>
 
       {cartItems.length === 0 ? (
-        <div className="text-center py-24 bg-slate-50 rounded-[2.5rem] border border-dashed border-slate-200">
-          <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
-            <ShoppingBag size={40} className="text-slate-200" />
+        <div className="text-center py-24 bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] border border-dashed border-slate-200 dark:border-slate-800">
+          <div className="w-24 h-24 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+            <ShoppingBag size={40} className="text-slate-200 dark:text-slate-700" />
           </div>
-          <h2 className="text-2xl font-bold mb-4">Your cart is empty</h2>
-          <p className="text-slate-500 mb-10 max-w-sm mx-auto">Explore our collection and add items to your cart to begin.</p>
+          <h2 className="text-2xl font-bold mb-4 dark:text-white">Your cart is empty</h2>
+          <p className="text-slate-500 dark:text-slate-400 mb-10 max-w-sm mx-auto">Explore our collection and add items to your cart to begin.</p>
           <Link to="/products" className="btn btn-primary inline-flex items-center px-12 py-4">
             Browse Products
           </Link>
@@ -52,44 +52,44 @@ const Cart = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="bg-white p-4 md:p-6 rounded-3xl border border-slate-100 flex flex-col sm:flex-row items-center gap-6"
+                  className="bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center gap-6"
                 >
-                  <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden bg-slate-50 flex-shrink-0">
+                  <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden bg-slate-50 dark:bg-slate-800 flex-shrink-0">
                       <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                   </div>
                   
                   <div className="flex-grow flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                     <div>
-                      <Link to={`/product/${item.product}`} className="text-lg font-bold text-slate-900 hover:text-primary-600 transition-colors">
+                      <Link to={`/product/${item.product}`} className="text-lg font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                           {item.title}
                       </Link>
-                      <p className="text-slate-500 text-sm mt-1">{formatCurrency(item.price)}</p>
+                      <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">{formatCurrency(item.price)}</p>
                     </div>
 
                     <div className="flex items-center gap-8">
-                      <div className="flex items-center border border-slate-200 rounded-xl bg-slate-50">
+                      <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800">
                         <button 
                             onClick={() => item.quantity > 1 ? addToCart({_id: item.product, title: item.title, price: item.price, images: [{url: item.image}]}, -1) : removeFromCart(item.product)}
-                            className="p-2.5 text-slate-500 hover:text-primary-600 transition-colors"
+                            className="p-2.5 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                         >
                             <Minus size={14} />
                         </button>
-                        <span className="w-8 text-center text-sm font-bold">{item.quantity}</span>
+                        <span className="w-8 text-center text-sm font-bold dark:text-white">{item.quantity}</span>
                         <button 
                             onClick={() => addToCart({_id: item.product, title: item.title, price: item.price, images: [{url: item.image}]}, 1)}
-                            className="p-2.5 text-slate-500 hover:text-primary-600 transition-colors"
+                            className="p-2.5 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                         >
                             <Plus size={14} />
                         </button>
                       </div>
 
-                      <div className="text-lg font-bold text-slate-900 min-w-[80px] text-right">
+                      <div className="text-lg font-bold text-slate-900 dark:text-white min-w-[80px] text-right">
                         {formatCurrency(item.price * item.quantity)}
                       </div>
 
                       <button 
                           onClick={() => removeFromCart(item.product)}
-                          className="p-2 text-slate-300 hover:text-red-500 transition-colors"
+                          className="p-2 text-slate-300 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 transition-colors"
                       >
                           <Trash2 size={18} />
                       </button>
@@ -102,21 +102,21 @@ const Cart = () => {
 
           {/* Order Summary */}
           <div className="lg:col-span-4 sticky top-24">
-            <div className="bg-slate-900 p-8 rounded-[2.5rem] text-white">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none transition-colors">
               <h2 className="text-xl font-bold mb-8">Order Summary</h2>
               
               <div className="space-y-4 mb-8">
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-slate-500 dark:text-slate-400">
                   <span>Subtotal</span>
-                  <span className="font-bold text-white">{formatCurrency(cartTotal)}</span>
+                  <span className="font-bold text-slate-900 dark:text-white">{formatCurrency(cartTotal)}</span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-slate-500 dark:text-slate-400">
                   <span>Shipping</span>
-                  <span className="text-primary-400 font-bold">Free</span>
+                  <span className="text-primary-600 dark:text-primary-400 font-bold">Free</span>
                 </div>
-                <div className="border-t border-slate-800 pt-6 flex justify-between items-end">
+                <div className="border-t border-slate-100 dark:border-slate-800 pt-6 flex justify-between items-end">
                   <span className="text-lg font-bold">Total</span>
-                  <span className="text-3xl font-bold">{formatCurrency(cartTotal)}</span>
+                  <span className="text-3xl font-bold text-slate-900 dark:text-white">{formatCurrency(cartTotal)}</span>
                 </div>
               </div>
 

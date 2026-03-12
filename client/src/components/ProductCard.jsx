@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="card group flex flex-col h-full bg-white"
+      className="card group flex flex-col h-full bg-white dark:bg-slate-900"
     >
       <Link to={`/product/${product._id}`} className="block relative aspect-[4/5] overflow-hidden bg-slate-50">
         <img
@@ -51,18 +51,18 @@ const ProductCard = ({ product }) => {
       </Link>
       
       <div className="p-6 flex flex-col flex-grow">
-        <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2">{product.category}</p>
-        <Link to={`/product/${product._id}`} className="text-lg font-bold text-slate-900 hover:text-primary-600 transition-colors line-clamp-1 mb-2">
+        <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">{product.category}</p>
+        <Link to={`/product/${product._id}`} className="text-lg font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors line-clamp-1 mb-2">
           {product.title}
         </Link>
-        <div className="text-xl font-bold text-slate-900 mb-4">{formatCurrency(product.price)}</div>
+        <div className="text-xl font-bold text-slate-900 dark:text-white mb-4">{formatCurrency(product.price)}</div>
         
-        <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
+        <div className="mt-auto pt-4 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
           <StarRating rating={product.ratings} numReviews={product.numReviews} />
           <button 
             onClick={handleAddToCart}
             disabled={product.stock === 0}
-            className="w-10 h-10 bg-primary-50 text-primary-600 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all disabled:opacity-20"
+            className="w-10 h-10 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all disabled:opacity-20"
           >
             <ShoppingCart size={18} />
           </button>

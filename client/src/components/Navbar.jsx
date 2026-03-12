@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { ShoppingBag, User, LogOut, Search, Menu, X, Layout } from 'lucide-react';
+import { ShoppingBag, User, LogOut, Search, Menu, X, Layout, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const { cartCount } = useCart();
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,14 +36,16 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`navbar-container ${isScrolled ? 'shadow-sm bg-white/95' : 'bg-transparent'} !px-0`}>
+    <nav className={`navbar-container ${isScrolled ? 'shadow-sm bg-white/95 dark:bg-slate-950/95' : 'bg-transparent'} !px-0`}>
       <div className="container mx-auto px-2 sm:px-4 flex items-center justify-between gap-2 md:gap-6">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group flex-shrink-0">
           <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white scale-100 group-hover:scale-110 transition-transform flex-shrink-0">
             <ShoppingBag size={18} />
           </div>
-          <span className="text-sm sm:text-xl font-bold text-slate-900 truncate max-w-[100px] xs:max-w-[120px] sm:max-w-none">E-Commerce Platform</span>
+          <span className="text-sm sm:text-xl font-bold text-slate-900 dark:text-white truncate max-w-[100px] xs:max-w-[120px] sm:max-w-none">E-Commerce Platform</span>
+          {/* Debug Indicator - Hidden in production */}
+          <span className="sr-only">Current Theme: {theme}</span>
         </Link>
 
         {/* Global Search */}
@@ -52,14 +56,14 @@ const Navbar = () => {
             placeholder="Search for products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-2 bg-slate-100 border-none rounded-xl transition-all outline-none text-sm"
+            className="w-full pl-11 pr-4 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-xl transition-all outline-none text-sm dark:text-white"
           />
         </form>
 
         {/* Nav Links */}
         <div className="hidden lg:flex items-center space-x-8">
-          <Link to="/products" className="text-sm font-semibold text-slate-600 hover:text-primary-600 transition-colors">Catalog</Link>
-          <Link to="/products" className="text-sm font-semibold text-slate-600 hover:text-primary-600 transition-colors">Categories</Link>
+          <Link to="/products" className="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors">Catalog</Link>
+          <Link to="/products" className="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors">Categories</Link>
         </div>
 
         {/* Actions */}
@@ -75,10 +79,18 @@ const Navbar = () => {
             </div>
           </Link>
 
+          <button
+            onClick={toggleTheme}
+            className="p-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
+          </button>
+
           {user && user.role === 'admin' && (
             <Link
               to="/admin"
-              className="hidden md:flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all shadow-lg shadow-slate-200"
+              className="hidden md:flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all"
             >
               <Layout size={14} className="text-primary-400" />
               Admin Panel
@@ -159,11 +171,27 @@ const Navbar = () => {
                 </button>
               </>
             ) : (
-              <div className="pt-4 grid grid-cols-2 gap-3 border-t border-slate-100">
+              <div className="pt-4 grid grid-cols-2 gap-3 border-t border-slate-100 dark:border-slate-800">
                 <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="btn btn-secondary text-sm">Login</Link>
                 <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="btn btn-primary text-sm">Sign Up</Link>
               </div>
             )}
+
+            <button
+              onClick={() => {
+                toggleTheme();
+                setIsMobileMenuOpen(false);
+              }}
+              className="w-full flex items-center justify-between px-4 py-3 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm font-bold text-slate-700 dark:text-slate-300 mt-2"
+            >
+              <div className="flex items-center gap-2">
+                {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+                <span>{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+              </div>
+              <div className={`w-10 h-5 rounded-full relative transition-colors ${theme === 'dark' ? 'bg-primary-600' : 'bg-slate-300'}`}>
+                <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${theme === 'dark' ? 'left-6' : 'left-1'}`} />
+              </div>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

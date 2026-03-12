@@ -136,8 +136,8 @@ const ProductList = () => {
                 onClick={() => handleCategoryClick(cat)}
                 className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                   categoryParam === cat
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                    ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400'
+                    : 'text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 <span>{cat}</span>
@@ -159,9 +159,9 @@ const ProductList = () => {
                 onChange={(e) => handlePriceChange(e.target.value)}
                 className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary-600" 
               />
-              <div className="flex justify-between text-xs font-bold text-slate-700">
+              <div className="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
                 <span>₹0</span>
-                <span className="text-primary-600 px-3 py-1 bg-primary-50 rounded-lg">Up to {formatCurrency(maxPriceParam)}</span>
+                <span className="text-primary-600 dark:text-primary-400 px-3 py-1 bg-primary-50 dark:bg-primary-900/20 rounded-lg">Up to {formatCurrency(maxPriceParam)}</span>
               </div>
            </div>
         </div>
@@ -171,10 +171,10 @@ const ProductList = () => {
       <div className="flex-grow">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 md:mb-10">
           <div>
-            <h1 className="text-2xl md:text-4xl font-bold text-slate-900 tracking-tight capitalize">
+            <h1 className="text-2xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight capitalize">
               {categoryParam !== 'All' ? categoryParam : keywordParam ? `Results for "${keywordParam}"` : 'All Products'}
             </h1>
-            <p className="text-sm text-slate-500 mt-1">Found {products.length} items matching your criteria</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Found {products.length} items matching your criteria</p>
           </div>
           
           <form onSubmit={handleSearchSubmit} className="relative w-72">

@@ -63,7 +63,7 @@ const ProductDetails = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
         {/* Gallery Section */}
         <div className="lg:col-span-6 space-y-6">
-          <div className="aspect-square relative rounded-3xl overflow-hidden bg-slate-50 border border-slate-100">
+          <div className="aspect-square relative rounded-3xl overflow-hidden bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
             <img 
               src={product.images[activeImage]?.url || 'https://via.placeholder.com/600'} 
               alt={product.title}
@@ -76,7 +76,7 @@ const ProductDetails = () => {
               <button 
                 key={idx}
                 onClick={() => setActiveImage(idx)}
-                className={`w-24 h-24 flex-shrink-0 rounded-2xl overflow-hidden border-2 transition-all ${activeImage === idx ? 'border-primary-500 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                className={`w-24 h-24 flex-shrink-0 rounded-2xl overflow-hidden border-2 transition-all ${activeImage === idx ? 'border-primary-500 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'} dark:bg-slate-900`}
               >
                 <img src={img.url} alt="" className="w-full h-full object-cover" />
               </button>
@@ -86,23 +86,23 @@ const ProductDetails = () => {
 
         {/* Info Section */}
         <div className="lg:col-span-6 flex flex-col pt-4">
-          <p className="text-[10px] md:text-xs font-bold text-primary-600 uppercase tracking-[0.2em] mb-4">{product.category}</p>
-          <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 md:mb-6 tracking-tight leading-tight">{product.title}</h1>
+          <p className="text-[10px] md:text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-[0.2em] mb-4">{product.category}</p>
+          <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 md:mb-6 tracking-tight leading-tight">{product.title}</h1>
           
-          <div className="flex items-center gap-6 mb-8 pb-8 border-b border-slate-100">
+          <div className="flex items-center gap-6 mb-8 pb-8 border-b border-slate-100 dark:border-slate-800">
             <StarRating rating={product.ratings} numReviews={product.numReviews} />
-            <div className="h-4 w-[1px] bg-slate-200"></div>
+            <div className="h-4 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
             {product.stock > 0 ? (
-              <span className="text-green-600 text-sm font-bold uppercase tracking-wider">In Stock</span>
+              <span className="text-green-600 dark:text-green-500 text-sm font-bold uppercase tracking-wider">In Stock</span>
             ) : (
-              <span className="text-slate-400 text-sm font-bold uppercase tracking-wider">Out of Stock</span>
+              <span className="text-slate-400 dark:text-slate-600 text-sm font-bold uppercase tracking-wider">Out of Stock</span>
             )}
           </div>
 
-          <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 md:mb-8">{formatCurrency(product.price)}</div>
+          <div className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6 md:mb-8">{formatCurrency(product.price)}</div>
           
-          <div className="prose prose-slate mb-10">
-            <p className="text-slate-600 leading-relaxed text-lg">
+          <div className="prose prose-slate dark:prose-invert mb-10">
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg">
               {product.description}
             </p>
           </div>
@@ -110,17 +110,17 @@ const ProductDetails = () => {
           {product.stock > 0 && (
             <div className="space-y-6 mb-12">
               <div className="flex items-center gap-6">
-                <div className="flex items-center border border-slate-200 rounded-xl bg-slate-50 overflow-hidden">
+                <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800 overflow-hidden">
                   <button 
                     onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                    className="p-3 text-slate-500 hover:text-primary-600 transition-colors"
+                    className="p-3 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     <Minus size={18} />
                   </button>
-                  <span className="px-6 py-2 font-bold text-slate-900 text-lg min-w-[3rem] text-center">{quantity}</span>
+                  <span className="px-6 py-2 font-bold text-slate-900 dark:text-white text-lg min-w-[3rem] text-center">{quantity}</span>
                   <button 
                     onClick={() => setQuantity(q => Math.min(product.stock, q + 1))}
-                    className="p-3 text-slate-500 hover:text-primary-600 transition-colors"
+                    className="p-3 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     <Plus size={18} />
                   </button>
@@ -143,11 +143,11 @@ const ProductDetails = () => {
               { icon: <ShieldCheck size={20} />, title: "Secure Checkout" },
               { icon: <RefreshCw size={20} />, title: "30-Day Returns" }
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                <div className="text-primary-600">
+              <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+                <div className="text-primary-600 dark:text-primary-400">
                   {item.icon}
                 </div>
-                <h4 className="text-xs font-bold text-slate-700">{item.title}</h4>
+                <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300">{item.title}</h4>
               </div>
             ))}
           </div>
