@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import { User, Mail, Lock, UserPlus } from 'lucide-react';
+import AnimatedPage from '../components/AnimatedPage';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -36,6 +37,7 @@ const Register = () => {
   };
 
   return (
+    <AnimatedPage>
     <div className="max-w-md mx-auto mt-12 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Create Account</h1>
@@ -132,6 +134,7 @@ const Register = () => {
         </p>
       </div>
     </div>
+    </AnimatedPage>
   );
 };
 

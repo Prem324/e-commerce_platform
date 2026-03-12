@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import API from '../services/api';
 import { toast } from 'react-toastify';
 import { Plus, Edit, Trash2, Package, Users, ShoppingCart, TrendingUp } from 'lucide-react';
+import AnimatedPage from '../components/AnimatedPage';
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
@@ -80,6 +81,7 @@ const AdminDashboard = () => {
   };
 
   return (
+    <AnimatedPage>
     <div className="max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-12">
         <div>
@@ -245,6 +247,7 @@ const AdminDashboard = () => {
         </div>
       )}
     </div>
+    </AnimatedPage>
   );
 };
 

@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { Package, MapPin, Calendar, CheckCircle, Clock } from 'lucide-react';
 import { formatCurrency, formatDate } from '../utils/formatters';
 import OrderStatusBadge from '../components/OrderStatusBadge';
+import AnimatedPage from '../components/AnimatedPage';
 
 const UserDashboard = () => {
   const { user } = useAuth();
@@ -25,6 +26,7 @@ const UserDashboard = () => {
   }, []);
 
   return (
+    <AnimatedPage>
     <div className="max-w-4xl mx-auto">
       <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 mb-8">
         <div className="flex items-center space-x-4">
@@ -93,6 +95,7 @@ const UserDashboard = () => {
         </div>
       )}
     </div>
+    </AnimatedPage>
   );
 };
 

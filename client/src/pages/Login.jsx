@@ -3,10 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import { Mail, Lock, LogIn } from 'lucide-react';
+import AnimatedPage from '../components/AnimatedPage';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // Correcting context import if needed, but earlier it was ../context/AuthContext
   const { login, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ const Login = () => {
   };
 
   return (
+    <AnimatedPage>
     <div className="max-w-md mx-auto mt-12 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
@@ -84,6 +87,7 @@ const Login = () => {
         </p>
       </div>
     </div>
+    </AnimatedPage>
   );
 };
 
