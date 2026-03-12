@@ -3,10 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import API from '../services/api';
 import { useCart } from '../context/CartContext';
 import { toast } from 'react-toastify';
-import { ShoppingCart, ArrowLeft, ShieldCheck, Truck, RefreshCw } from 'lucide-react';
+import { ShoppingCart, ShieldCheck, Truck, RefreshCw } from 'lucide-react';
 import { formatCurrency } from '../utils/formatters';
 import StarRating from '../components/StarRating';
 import Breadcrumbs from '../components/Breadcrumbs';
+import AnimatedPage from '../components/AnimatedPage';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -41,6 +42,7 @@ const ProductDetails = () => {
   if (!product) return null;
 
   return (
+    <AnimatedPage>
     <div className="max-w-6xl mx-auto">
       <Breadcrumbs 
         items={[
@@ -134,6 +136,7 @@ const ProductDetails = () => {
         </div>
       </div>
     </div>
+    </AnimatedPage>
   );
 };
 

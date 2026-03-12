@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { Trash2, ShoppingBag, ArrowRight, Minus, Plus } from 'lucide-react';
 import { formatCurrency } from '../utils/formatters';
+import AnimatedPage from '../components/AnimatedPage';
 
 const Cart = () => {
   const { cartItems, removeFromCart, cartTotal, loading, addToCart } = useCart();
@@ -11,6 +12,7 @@ const Cart = () => {
   if (loading) return <div className="text-center py-20">Loading...</div>;
 
   return (
+    <AnimatedPage>
     <div className="max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
         <ShoppingBag className="text-primary-600" size={32} />
@@ -122,22 +124,12 @@ const Cart = () => {
                     Continue Shopping
                   </Link>
               </div>
-              
-              <div className="mt-8 pt-8 border-t border-gray-100 text-center">
-                  <div className="flex justify-center gap-4 mb-4 opacity-30 grayscale">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" className="h-4" alt="Visa" />
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" className="h-4" alt="Mastercard" />
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" className="h-4" alt="Paypal" />
-                  </div>
-                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
-                    Secure 256-bit SSL encrypted checkout
-                  </p>
-              </div>
             </div>
           </div>
         </div>
       )}
     </div>
+    </AnimatedPage>
   );
 };
 

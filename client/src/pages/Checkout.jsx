@@ -5,6 +5,7 @@ import API from '../services/api';
 import { toast } from 'react-toastify';
 import { CreditCard, Truck, MapPin, CheckCircle, ArrowLeft } from 'lucide-react';
 import { formatCurrency } from '../utils/formatters';
+import AnimatedPage from '../components/AnimatedPage';
 
 const Checkout = () => {
   const { cartItems, cartTotal, clearCart } = useCart();
@@ -57,6 +58,7 @@ const Checkout = () => {
   }
 
   return (
+    <AnimatedPage>
     <div className="max-w-6xl mx-auto">
       <button 
         onClick={() => navigate('/cart')}
@@ -145,9 +147,6 @@ const Checkout = () => {
                     </>
                   )}
                 </button>
-                <p className="text-center text-xs text-gray-400 mt-4 px-8">
-                    By clicking "Confirm & Place Order", you agree to our Terms of Service and Privacy Policy.
-                </p>
               </div>
             </form>
           </div>
@@ -190,22 +189,11 @@ const Checkout = () => {
                 <span className="text-3xl font-bold text-primary-600 tracking-tight">{formatCurrency(cartTotal)}</span>
               </div>
             </div>
-            
-            <div className="mt-10 flex flex-col items-center gap-4">
-                <div className="flex items-center gap-2 text-gray-400 font-medium text-sm">
-                    <Truck size={18} />
-                    <span>Estimated delivery: {new Date(Date.now() + 5*24*60*60*1000).toLocaleDateString(undefined, {month: 'long', day: 'numeric'})}</span>
-                </div>
-                <div className="flex gap-4 opacity-40 grayscale scale-90">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" className="h-4" alt="Visa" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" className="h-4" alt="Mastercard" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" className="h-4" alt="Paypal" />
-                </div>
-            </div>
           </div>
         </div>
       </div>
     </div>
+    </AnimatedPage>
   );
 };
 

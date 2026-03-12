@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import { useProducts } from '../hooks/useProducts';
 import { Search, SlidersHorizontal } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import AnimatedPage from '../components/AnimatedPage';
 
 const ProductList = () => {
   const [keyword, setKeyword] = useState('');
@@ -19,7 +21,26 @@ const ProductList = () => {
 
   const { products, loading, pages } = useProducts(searchTerm, page);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
+
   return (
+    <AnimatedPage>
     <div>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
@@ -71,11 +92,20 @@ const ProductList = () => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
+            <AnimatePresence>
+                {products.map((product) => (
+                <motion.div key={product._id} variants={itemVariants} layout>
+                    <ProductCard product={product} />
+                </motion.div>
+                ))}
+            </AnimatePresence>
+          </motion.div>
           
           {pages > 1 && (
             <div className="mt-16 flex justify-center space-x-3">
@@ -97,6 +127,7 @@ const ProductList = () => {
         </>
       )}
     </div>
+    </AnimatedPage>
   );
 };
 
