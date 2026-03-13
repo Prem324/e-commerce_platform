@@ -12,11 +12,11 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const login = async (email, password) => {
+  const login = async (username, password) => {
     setLoading(true);
     setError(null);
     try {
-      const { data } = await API.post('/auth/login', { email, password });
+      const { data } = await API.post('/auth/login', { username, password });
       setUser(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
@@ -28,11 +28,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (name, email, password) => {
+  const register = async (name, email, username, password) => {
     setLoading(true);
     setError(null);
     try {
-      const { data } = await API.post('/auth/register', { name, email, password });
+      const { data } = await API.post('/auth/register', { name, email, username, password });
       setUser(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);

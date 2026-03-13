@@ -19,13 +19,17 @@ const AdminDashboard = () => {
     description: '',
     category: '',
     stock: '',
-    image: ''
+    images: []
   });
 
   const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('image', file);
+    const files = e.target.files;
+    const uploadFormData = new FormData();
+    
+    for (let i = 0; i < files.length; i++) {
+      uploadFormData.append('images', files[i]);
+    }
+    
     setUploading(true);
 
     try {
@@ -35,10 +39,10 @@ const AdminDashboard = () => {
         },
       };
 
-      const { data } = await API.post('/upload', formData, config);
-      setFormData(prev => ({ ...prev, image: data.url }));
+      const { data } = await API.post('/upload', uploadFormData, config);
+      setFormData(prev => ({ ...prev, images: [...prev.images, ...data] }));
       setUploading(false);
-      toast.success('Image uploaded to Cloudinary');
+      toast.success('Images uploaded to Cloudinary');
     } catch (error) {
       console.error(error);
       setUploading(false);
@@ -48,7 +52,7 @@ const AdminDashboard = () => {
 
   const fetchProducts = async () => {
     try {
-      const { data } = await API.get('/products');
+      const { data } = await API.get('/products?pageSize=100');
       setProducts(data.products);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -91,7 +95,7 @@ const AdminDashboard = () => {
       fetchProducts();
       setShowAddModal(false);
       setEditingProduct(null);
-      setFormData({ title: '', price: '', description: '', category: '', stock: '', image: '' });
+      setFormData({ title: '', price: '', description: '', category: '', stock: '', images: [] });
     } catch (error) {
       toast.error(error.response?.data?.message || 'Operation failed');
     }
@@ -105,7 +109,7 @@ const AdminDashboard = () => {
       description: product.description,
       category: product.category,
       stock: product.stock,
-      image: product.images[0]?.url || ''
+      images: product.images || []
     });
     setShowAddModal(true);
   };
@@ -145,7 +149,7 @@ const AdminDashboard = () => {
             <button
               onClick={() => {
                 setEditingProduct(null);
-                setFormData({ title: '', price: '', description: '', category: '', stock: '', image: '' });
+                setFormData({ title: '', price: '', description: '', category: '', stock: '', images: [] });
                 setShowAddModal(true);
               }}
               className="btn btn-primary shadow-none hover:shadow-none flex items-center space-x-2 px-6 py-3"
@@ -350,28 +354,42 @@ const AdminDashboard = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wide">Product Image</label>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wide">Product Images</label>
                   <div className="flex flex-col space-y-4">
-                    <input
-                      type="text"
-                      name="image"
-                      className="input"
-                      placeholder="Enter image URL or upload below"
-                      value={formData.image}
-                      onChange={handleInputChange}
-                    />
+                    <div className="flex flex-wrap gap-4 mb-2">
+                      {formData.images.map((img, index) => (
+                        <div key={index} className="relative group">
+                          <img 
+                            src={img.url} 
+                            alt={`Preview ${index}`} 
+                            className="w-20 h-20 object-cover rounded-xl border border-slate-200 dark:border-slate-800" 
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setFormData(prev => ({
+                              ...prev,
+                              images: prev.images.filter((_, i) => i !== index)
+                            }))}
+                            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <Plus size={12} className="rotate-45" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                     <div className="relative">
                       <input
                         type="file"
                         id="image-file"
                         className="hidden"
+                        multiple
                         onChange={uploadFileHandler}
                       />
                       <label
                         htmlFor="image-file"
                         className={`btn ${uploading ? 'btn-secondary' : 'btn-primary'} shadow-none hover:shadow-none w-full flex items-center justify-center cursor-pointer py-2`}
                       >
-                        {uploading ? 'Uploading to Cloudinary...' : 'Choose Local File'}
+                        {uploading ? 'Uploading to Cloudinary...' : 'Choose Local Files (Multiple)'}
                       </label>
                     </div>
                   </div>

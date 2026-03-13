@@ -9,13 +9,14 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    username: '',
     password: '',
     confirmPassword: ''
   });
   const { register, loading } = useAuth();
   const navigate = useNavigate();
 
-  const { name, email, password, confirmPassword } = formData;
+  const { name, email, username, password, confirmPassword } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,7 +29,7 @@ const Register = () => {
     }
 
     try {
-      await register(name, email, password);
+      await register(name, email, username, password);
       toast.success('Account created successfully');
       navigate('/');
     } catch (error) {
@@ -56,6 +57,22 @@ const Register = () => {
                 placeholder="Name"
                 className="input-field !pl-12"
                 value={name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Username</label>
+            <div className="relative group">
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-focus-within:text-primary-600 transition-colors" size={18} />
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                className="input-field !pl-12"
+                value={username}
                 onChange={handleChange}
                 required
               />

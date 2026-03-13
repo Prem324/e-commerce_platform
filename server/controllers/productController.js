@@ -5,7 +5,7 @@ const Product = require('../models/Product');
 // @access  Public
 const getProducts = async (req, res) => {
     try {
-        const pageSize = 8;
+        const pageSize = Number(req.query.pageSize) || 8;
         const page = Number(req.query.pageNumber) || 1;
 
         const query = {};
@@ -34,8 +34,21 @@ const getProducts = async (req, res) => {
             }
         }
 
+        // Sorting Logic
+        let sortQuery = { createdAt: -1 }; // Default: Newest
+        if (req.query.sort === 'priceLow') {
+            sortQuery = { price: 1 };
+        } else if (req.query.sort === 'priceHigh') {
+            sortQuery = { price: -1 };
+        } else if (req.query.sort === 'trending') {
+            sortQuery = { ratings: -1, numReviews: -1 };
+        } else if (req.query.sort === 'newest') {
+            sortQuery = { createdAt: -1 };
+        }
+
         const count = await Product.countDocuments({ ...query });
         const products = await Product.find({ ...query })
+            .sort(sortQuery)
             .limit(pageSize)
             .skip(pageSize * (page - 1))
             .lean();
@@ -86,13 +99,13 @@ const deleteProduct = async (req, res) => {
 // @access  Private/Admin
 const createProduct = async (req, res) => {
     try {
-        const { title, price, description, image, category, stock } = req.body;
+        const { title, price, description, images, category, stock } = req.body;
 
         const product = new Product({
             title: title || 'New Artifact',
             price: price || 0,
             user: req.user._id,
-            images: [{ url: image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30' }],
+            images: images && images.length > 0 ? images : [{ url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30' }],
             category: category || 'General',
             stock: stock || 0,
             ratings: (Math.random() * (5 - 3.5) + 3.5).toFixed(1),
@@ -112,7 +125,7 @@ const createProduct = async (req, res) => {
 // @access  Private/Admin
 const updateProduct = async (req, res) => {
     try {
-        const { title, price, description, images, image, category, stock } = req.body;
+        const { title, price, description, images, category, stock } = req.body;
 
         const product = await Product.findById(req.params.id);
 
@@ -123,8 +136,6 @@ const updateProduct = async (req, res) => {
             
             if (images) {
                 product.images = images;
-            } else if (image) {
-                product.images = [{ url: image }];
             }
             product.category = category || product.category;
             product.stock = stock || product.stock;

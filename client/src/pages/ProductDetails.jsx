@@ -9,6 +9,7 @@ import StarRating from '../components/StarRating';
 import Breadcrumbs from '../components/Breadcrumbs';
 import AnimatedPage from '../components/AnimatedPage';
 import { motion } from 'framer-motion';
+import ImageGallery from '../components/ImageGallery';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -17,7 +18,6 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -62,26 +62,8 @@ const ProductDetails = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
         {/* Gallery Section */}
-        <div className="lg:col-span-6 space-y-6">
-          <div className="aspect-square relative rounded-3xl overflow-hidden bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
-            <img 
-              src={product.images[activeImage]?.url || 'https://via.placeholder.com/600'} 
-              alt={product.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div className="flex gap-4 overflow-x-auto pb-2">
-            {product.images.map((img, idx) => (
-              <button 
-                key={idx}
-                onClick={() => setActiveImage(idx)}
-                className={`w-24 h-24 flex-shrink-0 rounded-2xl overflow-hidden border-2 transition-all ${activeImage === idx ? 'border-primary-500 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'} dark:bg-slate-900`}
-              >
-                <img src={img.url} alt="" className="w-full h-full object-cover" />
-              </button>
-            ))}
-          </div>
+        <div className="lg:col-span-6">
+          <ImageGallery images={product.images} title={product.title} />
         </div>
 
         {/* Info Section */}

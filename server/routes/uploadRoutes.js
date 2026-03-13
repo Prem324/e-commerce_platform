@@ -37,22 +37,26 @@ const upload = multer({
   },
 });
 
-router.post('/', protect, admin, upload.single('image'), async (req, res) => {
+router.post('/', protect, admin, upload.array('images', 10), async (req, res) => {
   try {
-    const result = await cloudinary.uploader.upload(req.file.path, {
+    const uploadPromises = req.files.map(async (file) => {
+      const result = await cloudinary.uploader.upload(file.path, {
         folder: 'mern-shop',
+      });
+      // Delete the file from local storage after upload
+      const fs = require('fs');
+      fs.unlinkSync(file.path);
+      return {
+        url: result.secure_url,
+        public_id: result.public_id,
+      };
     });
-    // Optional: Delete the file from local storage after upload
-    const fs = require('fs');
-    fs.unlinkSync(req.file.path);
-    
-    res.send({
-      url: result.secure_url,
-      public_id: result.public_id,
-    });
+
+    const results = await Promise.all(uploadPromises);
+    res.send(results);
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: 'Error uploading image' });
+    res.status(500).send({ message: 'Error uploading images' });
   }
 });
 

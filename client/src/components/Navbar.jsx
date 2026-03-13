@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { ShoppingBag, User, LogOut, Search, Menu, X, Layout, Sun, Moon } from 'lucide-react';
+import { ShoppingBag, User, LogOut, Search, Menu, X, Layout, Sun, Moon, Package } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
@@ -62,8 +62,10 @@ const Navbar = () => {
 
         {/* Nav Links */}
         <div className="hidden lg:flex items-center space-x-8">
-          <Link to="/products" className="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors">Catalog</Link>
-          <Link to="/products" className="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors">Categories</Link>
+          <Link to="/products" className="flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors uppercase tracking-wider">
+            <Package size={18} className="text-slate-400 group-hover:text-primary-600" />
+            <span>Products</span>
+          </Link>
         </div>
 
         {/* Actions */}
@@ -144,8 +146,10 @@ const Navbar = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </form>
-            <Link to="/products" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-semibold text-slate-600">Catalog</Link>
-            <Link to="/products" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-semibold text-slate-600">Categories</Link>
+            <Link to="/products" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-base font-semibold text-slate-600 dark:text-slate-300">
+              <Package size={20} className="text-slate-400" />
+              <span>Products</span>
+            </Link>
 
             {user ? (
               <>

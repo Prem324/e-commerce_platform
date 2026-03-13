@@ -23,11 +23,11 @@ const ProductCard = ({ product }) => {
       viewport={{ once: true }}
       className="card group flex flex-col h-full bg-white dark:bg-slate-900"
     >
-      <Link to={`/product/${product._id}`} className="block relative aspect-[4/5] overflow-hidden bg-slate-50">
+      <Link to={`/product/${product._id}`} className="block relative aspect-[4/5] overflow-hidden bg-white dark:bg-slate-950 px-4 pt-4">
         <img
           src={product.images[0]?.url || 'https://via.placeholder.com/300'}
           alt={product.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
         />
         
         {/* Simple Badge */}
@@ -50,12 +50,12 @@ const ProductCard = ({ product }) => {
         </div>
       </Link>
       
-      <div className="p-6 flex flex-col flex-grow">
-        <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">{product.category}</p>
-        <Link to={`/product/${product._id}`} className="text-lg font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors line-clamp-1 mb-2">
+      <div className="p-4 flex flex-col flex-grow">
+        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5">{product.category}</p>
+        <Link to={`/product/${product._id}`} className="text-base font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors line-clamp-1 mb-1.5">
           {product.title}
         </Link>
-        <div className="text-xl font-bold text-slate-900 dark:text-white mb-4">{formatCurrency(product.price)}</div>
+        <div className="text-lg font-bold text-slate-900 dark:text-white mb-3">{formatCurrency(product.price)}</div>
         
         <div className="mt-auto pt-4 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
           <StarRating rating={product.ratings} numReviews={product.numReviews} />
