@@ -92,23 +92,31 @@ const ProductList = () => {
     <AnimatedPage>
     <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12 mt-4 md:mt-8 min-h-screen">
       {/* Mobile Search & Filter */}
-      <div className="lg:hidden flex gap-2">
+      <div className="lg:hidden flex flex-col md:flex-row gap-4 w-full px-1">
         <form onSubmit={handleSearchSubmit} className="relative flex-grow">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
           <input
             type="text"
             placeholder="Search products..."
-            className="input-field pl-12 py-3"
+            className="input-field pl-12 py-3.5 text-base"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
           />
         </form>
-        <button 
-          onClick={() => setShowFilters(!showFilters)}
-          className={`btn btn-secondary !px-4 ${hasActiveFilters ? 'border-primary-500 text-primary-600' : ''}`}
-        >
-          <SlidersHorizontal size={20} />
-        </button>
+        <div className="flex gap-2">
+           <button 
+             onClick={() => setShowFilters(!showFilters)}
+             className={`btn btn-secondary flex-grow !py-3.5 ${hasActiveFilters ? 'border-primary-500 text-primary-600 ring-1 ring-primary-500/20' : ''}`}
+           >
+             <SlidersHorizontal size={20} />
+             <span>Filters {hasActiveFilters ? '(Active)' : ''}</span>
+           </button>
+           {hasActiveFilters && (
+             <button onClick={clearFilters} className="btn btn-secondary !px-4 !py-3.5 text-red-500 border-red-100 bg-red-50 dark:bg-red-950/20 dark:border-red-900/30">
+               <RotateCcw size={18} />
+             </button>
+           )}
+        </div>
       </div>
 
       {/* Sidebar Filters */}
@@ -221,6 +229,7 @@ const ProductList = () => {
           </h4>
           <div className="grid grid-cols-1 gap-1.5">
             {[
+              { id: 'oldest', label: 'Oldest First' },
               { id: 'newest', label: 'Latest Arrivals' },
               { id: 'trending', label: 'Popularity' },
               { id: 'priceLow', label: 'Price: Low to High' },
@@ -230,17 +239,17 @@ const ProductList = () => {
                 key={sort.id}
                 onClick={() => updateFilters({ sort: sort.id, page: 1 })}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all border ${
-                  sortParam === sort.id || (!sortParam && sort.id === 'newest')
+                  sortParam === sort.id || (!sortParam && sort.id === 'oldest')
                     ? 'bg-primary-50 dark:bg-primary-900/10 border-primary-100 dark:border-primary-900/20 text-primary-600'
                     : 'bg-white dark:bg-slate-900/50 border-slate-100 dark:border-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                   (sortParam === sort.id || (!sortParam && sort.id === 'newest'))
+                   (sortParam === sort.id || (!sortParam && sort.id === 'oldest'))
                    ? 'border-primary-600' 
                    : 'border-slate-300 dark:border-slate-700'
                 }`}>
-                  {(sortParam === sort.id || (!sortParam && sort.id === 'newest')) && (
+                  {(sortParam === sort.id || (!sortParam && sort.id === 'oldest')) && (
                     <div className="w-1.5 h-1.5 bg-primary-600 rounded-full" />
                   )}
                 </div>
@@ -253,20 +262,20 @@ const ProductList = () => {
 
       {/* Main Content */}
       <div className="flex-grow">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-10 min-h-[80px]">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 md:mb-10 min-h-[80px]">
           <div>
             <motion.h1 
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               key={categoryParam + keywordParam}
-              className="text-2xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight capitalize"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight capitalize"
             >
               {categoryParam !== 'All' ? categoryParam : keywordParam ? `Results for "${keywordParam}"` : 'All Products'}
             </motion.h1>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Found {products.length} items matching your criteria</p>
           </div>
           
-          <form onSubmit={handleSearchSubmit} className="relative w-full md:w-72">
+          <form onSubmit={handleSearchSubmit} className="hidden lg:relative lg:block w-full md:w-72">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
             <input
               type="text"
@@ -279,9 +288,9 @@ const ProductList = () => {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="animate-pulse bg-slate-50 rounded-3xl aspect-[4/5]" />
+              <div key={i} className="animate-pulse bg-slate-50 dark:bg-slate-900 rounded-3xl aspect-[4/5]" />
             ))}
           </div>
         ) : products.length === 0 ? (
@@ -298,7 +307,7 @@ const ProductList = () => {
         ) : (
           <>
             <motion.div 
-              className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start"
+              className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 items-start"
             >
               <AnimatePresence>
                   {products.map((product) => (

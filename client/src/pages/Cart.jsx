@@ -58,32 +58,32 @@ const Cart = () => {
                       <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                   </div>
                   
-                  <div className="flex-grow flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-                    <div>
-                      <Link to={`/product/${item.product}`} className="text-lg font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                  <div className="flex-grow flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6">
+                    <div className="text-center sm:text-left">
+                      <Link to={`/product/${item.product}`} className="text-base sm:text-lg font-bold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors line-clamp-2">
                           {item.title}
                       </Link>
                       <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">{formatCurrency(item.price)}</p>
                     </div>
 
-                    <div className="flex items-center gap-8">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-between gap-4 sm:gap-8">
                       <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800">
                         <button 
                             onClick={() => item.quantity > 1 ? addToCart({_id: item.product, title: item.title, price: item.price, images: [{url: item.image}]}, -1) : removeFromCart(item.product)}
-                            className="p-2.5 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                            className="p-2 sm:p-2.5 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                         >
                             <Minus size={14} />
                         </button>
-                        <span className="w-8 text-center text-sm font-bold dark:text-white">{item.quantity}</span>
+                        <span className="w-8 sm:w-10 text-center text-sm font-bold dark:text-white">{item.quantity}</span>
                         <button 
                             onClick={() => addToCart({_id: item.product, title: item.title, price: item.price, images: [{url: item.image}]}, 1)}
-                            className="p-2.5 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                            className="p-2 sm:p-2.5 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                         >
                             <Plus size={14} />
                         </button>
                       </div>
 
-                      <div className="text-lg font-bold text-slate-900 dark:text-white min-w-[80px] text-right">
+                      <div className="text-base sm:text-lg font-bold text-slate-900 dark:text-white min-w-[70px] sm:min-w-[80px] text-right">
                         {formatCurrency(item.price * item.quantity)}
                       </div>
 

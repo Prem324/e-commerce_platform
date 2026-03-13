@@ -48,18 +48,18 @@ const UserDashboard = () => {
   return (
     <AnimatedPage>
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center text-primary-600 dark:text-primary-400">
-              <span className="text-2xl font-bold">
+        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 mb-8 mt-4">
+          <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6 text-center sm:text-left">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center text-primary-600 dark:text-primary-400 border-4 border-white dark:border-slate-800 shadow-sm">
+              <span className="text-2xl sm:text-3xl font-bold">
                 {user?.name?.charAt(0)}
               </span>
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+              <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
                 {user?.name}
               </h1>
-              <p className="text-slate-500 dark:text-slate-400">
+              <p className="text-slate-500 dark:text-slate-400 mt-0.5">
                 {user?.email}
               </p>
             </div>
@@ -86,7 +86,7 @@ const UserDashboard = () => {
                 key={order._id}
                 className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 border-b dark:border-slate-800 flex justify-between items-center">
+                <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 border-b dark:border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div className="flex flex-wrap gap-x-8 gap-y-4">
                     <div>
                       <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold tracking-widest">
@@ -105,8 +105,8 @@ const UserDashboard = () => {
                       </p>
                     </div>
                   </div>
-                  <div>
-                    <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold tracking-widest text-right">
+                  <div className="sm:text-right w-full sm:w-auto pt-4 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-slate-700 sm:dark:border-transparent">
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold tracking-widest">
                       Order #
                     </p>
                     <p className="text-sm font-bold text-slate-900 dark:text-white">

@@ -140,9 +140,9 @@ const AdminDashboard = () => {
   return (
     <AnimatedPage>
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
           <div>
-            <h1 className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Admin Panel</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Admin Panel</h1>
             <p className="text-slate-500 dark:text-slate-400 mt-2">Manage your inventory and orders</p>
           </div>
           {activeTab === 'products' && (
@@ -152,7 +152,7 @@ const AdminDashboard = () => {
                 setFormData({ title: '', price: '', description: '', category: '', stock: '', images: [] });
                 setShowAddModal(true);
               }}
-              className="btn btn-primary shadow-none hover:shadow-none flex items-center space-x-2 px-6 py-3"
+              className="btn btn-primary w-full md:w-auto shadow-none hover:shadow-none flex items-center space-x-2 px-6 py-3"
             >
               <Plus size={20} />
               <span>Add New Product</span>
@@ -183,138 +183,230 @@ const AdminDashboard = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center space-x-4">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400">
-              <Package size={24} />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+          <div className="bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center md:items-center gap-3 md:gap-4 text-center md:text-left">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-100 dark:bg-blue-900/20 rounded-xl md:rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400">
+              <Package size={20} className="md:w-6 md:h-6" />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Products</p>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white">{products.length}</p>
+              <p className="text-[10px] md:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Products</p>
+              <p className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">{products.length}</p>
             </div>
           </div>
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center space-x-4">
-            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-2xl flex items-center justify-center text-green-600 dark:text-green-400">
-              <TrendingUp size={24} />
+          <div className="bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center md:items-center gap-3 md:gap-4 text-center md:text-left">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 dark:bg-green-900/20 rounded-xl md:rounded-2xl flex items-center justify-center text-green-600 dark:text-green-400">
+              <TrendingUp size={20} className="md:w-6 md:h-6" />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Revenue</p>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white">{formatCurrency(845000)}</p>
+              <p className="text-[10px] md:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Revenue</p>
+              <p className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">{formatCurrency(845000)}</p>
             </div>
           </div>
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center space-x-4">
-            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400">
-              <Users size={24} />
+          <div className="bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center md:items-center gap-3 md:gap-4 text-center md:text-left">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-purple-100 dark:bg-purple-900/20 rounded-xl md:rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400">
+              <Users size={20} className="md:w-6 md:h-6" />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Customers</p>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white">85</p>
+              <p className="text-[10px] md:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Users</p>
+              <p className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">85</p>
             </div>
           </div>
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center space-x-4">
-            <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/20 rounded-2xl flex items-center justify-center text-orange-600 dark:text-orange-400">
-              <ShoppingCart size={24} />
+          <div className="bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center md:items-center gap-3 md:gap-4 text-center md:text-left">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-orange-100 dark:bg-orange-900/20 rounded-xl md:rounded-2xl flex items-center justify-center text-orange-600 dark:text-orange-400">
+              <ShoppingCart size={20} className="md:w-6 md:h-6" />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Active Orders</p>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white">{orders.length}</p>
+              <p className="text-[10px] md:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Orders</p>
+              <p className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">{orders.length}</p>
             </div>
           </div>
         </div>
 
         {activeTab === 'products' ? (
-          /* Products Table */
-          <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
-                  <tr>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">ID</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Product</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Category</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Price</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Stock</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                  {loading ? (
-                    <tr><td colSpan="6" className="px-6 py-10 text-center">Loading...</td></tr>
-                  ) : products.map((product) => (
-                    <tr key={product._id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                      <td className="px-6 py-4 text-sm text-slate-400 dark:text-slate-500 font-mono">#{product._id.slice(-6).toUpperCase()}</td>
-                      <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">{product.title}</td>
-                      <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">{product.category}</td>
-                      <td className="px-6 py-4 font-bold text-primary-600 dark:text-primary-400">{formatCurrency(product.price)}</td>
-                      <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${product.stock > 10 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                          }`}>
-                          {product.stock} in stock
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-right space-x-2">
-                        <button
-                          onClick={() => handleEdit(product)}
-                          className="p-2 text-slate-400 dark:text-slate-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                        >
-                          <Edit size={18} />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(product._id)}
-                          className="p-2 text-gray-400 hover:text-red-500 transition-colors"
-                        >
-                          <Trash2 size={18} />
-                        </button>
-                      </td>
+          <div className="space-y-4">
+            {/* Mobile Products View */}
+            <div className="grid grid-cols-1 gap-4 md:hidden">
+              {loading ? (
+                <div className="text-center py-10 card">Loading...</div>
+              ) : products.map((product) => (
+                <div key={product._id} className="card p-5 flex flex-col gap-4">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center overflow-hidden border border-slate-100 dark:border-slate-800">
+                        {product.images?.[0] ? (
+                          <img src={product.images[0].url} alt="" className="w-full h-full object-cover" />
+                        ) : (
+                          <Package size={20} className="text-slate-300" />
+                        )}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white line-clamp-1">{product.title}</h4>
+                        <p className="text-[10px] text-slate-400 font-mono">#{product._id.slice(-6).toUpperCase()}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-1">
+                      <button onClick={() => handleEdit(product)} className="p-2 text-slate-400 hover:text-primary-600 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <Edit size={16} />
+                      </button>
+                      <button onClick={() => handleDelete(product._id)} className="p-2 text-slate-400 hover:text-red-500 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50 dark:border-slate-800">
+                    <div>
+                      <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-1">Price</p>
+                      <p className="font-bold text-primary-600 dark:text-primary-400">{formatCurrency(product.price)}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-1">Stock</p>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${product.stock > 10 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                        {product.stock} Units
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Products Table */}
+            <div className="hidden md:block bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left">
+                  <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
+                    <tr>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">ID</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Product</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Category</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Price</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Stock</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest text-right">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                    {loading ? (
+                      <tr><td colSpan="6" className="px-6 py-10 text-center">Loading...</td></tr>
+                    ) : products.map((product) => (
+                      <tr key={product._id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                        <td className="px-6 py-4 text-sm text-slate-400 dark:text-slate-500 font-mono">#{product._id.slice(-6).toUpperCase()}</td>
+                        <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">{product.title}</td>
+                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">{product.category}</td>
+                        <td className="px-6 py-4 font-bold text-primary-600 dark:text-primary-400">{formatCurrency(product.price)}</td>
+                        <td className="px-6 py-4">
+                          <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${product.stock > 10 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                            }`}>
+                            {product.stock} in stock
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-right space-x-2">
+                          <button
+                            onClick={() => handleEdit(product)}
+                            className="p-2 text-slate-400 dark:text-slate-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                          >
+                            <Edit size={18} />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(product._id)}
+                            className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         ) : (
-          /* Orders Table */
-          <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
-                  <tr>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Order ID</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Customer</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Date</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Total</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Status</th>
-                    <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                  {loading ? (
-                    <tr><td colSpan="6" className="px-6 py-10 text-center">Loading...</td></tr>
-                  ) : orders.length === 0 ? (
-                    <tr><td colSpan="6" className="px-6 py-10 text-center">No orders found.</td></tr>
-                  ) : orders.map((order) => (
-                    <tr key={order._id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                      <td className="px-6 py-4 text-sm text-slate-400 dark:text-slate-500 font-mono">#{order._id.slice(-8).toUpperCase()}</td>
-                      <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">{order.user?.name || 'Unknown User'}</td>
-                      <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">{new Date(order.createdAt).toLocaleDateString()}</td>
-                      <td className="px-6 py-4 font-bold text-primary-600 dark:text-primary-400">{formatCurrency(order.totalPrice)}</td>
-                      <td className="px-6 py-4">
-                        <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-700">
-                          {order.orderStatus}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <button
-                          onClick={() => handleDeleteOrder(order._id)}
-                          className="p-2 text-gray-400 hover:text-red-500 transition-colors"
-                        >
-                          <Trash2 size={18} />
-                        </button>
-                      </td>
+          <div className="space-y-4">
+            {/* Mobile Orders View */}
+            <div className="grid grid-cols-1 gap-4 md:hidden">
+              {loading ? (
+                <div className="text-center py-10 card">Loading...</div>
+              ) : orders.length === 0 ? (
+                <div className="text-center py-10 card">No orders found.</div>
+              ) : orders.map((order) => (
+                <div key={order._id} className="card p-5 flex flex-col gap-4">
+                   <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-0.5">Order ID</p>
+                      <h4 className="font-bold text-slate-900 dark:text-white font-mono">#{order._id.slice(-8).toUpperCase()}</h4>
+                    </div>
+                    <button onClick={() => handleDeleteOrder(order._id)} className="p-2 text-slate-400 hover:text-red-500 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-y-4 pt-4 border-t border-slate-50 dark:border-slate-800">
+                    <div>
+                      <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-0.5">Customer</p>
+                      <p className="text-sm font-bold text-slate-900 dark:text-white">{order.user?.name || 'Unknown'}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-0.5">Date</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">{new Date(order.createdAt).toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-0.5">Total Amount</p>
+                      <p className="font-bold text-primary-600 dark:text-primary-400">{formatCurrency(order.totalPrice)}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-0.5">Status</p>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-700">
+                        {order.orderStatus}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Orders Table */}
+            <div className="hidden md:block bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left">
+                  <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
+                    <tr>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Order ID</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Customer</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Date</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Total</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Status</th>
+                      <th className="px-6 py-4 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest text-right">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                    {loading ? (
+                      <tr><td colSpan="6" className="px-6 py-10 text-center">Loading...</td></tr>
+                    ) : orders.length === 0 ? (
+                      <tr><td colSpan="6" className="px-6 py-10 text-center">No orders found.</td></tr>
+                    ) : orders.map((order) => (
+                      <tr key={order._id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                        <td className="px-6 py-4 text-sm text-slate-400 dark:text-slate-500 font-mono">#{order._id.slice(-8).toUpperCase()}</td>
+                        <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">{order.user?.name || 'Unknown User'}</td>
+                        <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">{new Date(order.createdAt).toLocaleDateString()}</td>
+                        <td className="px-6 py-4 font-bold text-primary-600 dark:text-primary-400">{formatCurrency(order.totalPrice)}</td>
+                        <td className="px-6 py-4">
+                          <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-700">
+                            {order.orderStatus}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <button
+                            onClick={() => handleDeleteOrder(order._id)}
+                            className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}
@@ -322,7 +414,7 @@ const AdminDashboard = () => {
         {/* Modal Overlay */}
         {showAddModal && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-200 border dark:border-slate-800">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in duration-200 border dark:border-slate-800">
               <div className="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{editingProduct ? 'Edit Product' : 'Add New Product'}</h2>
                 <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
@@ -330,8 +422,8 @@ const AdminDashboard = () => {
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                <div className="grid grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-6 overflow-y-auto flex-grow scrollbar-thin">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wide">Product Title</label>
                     <input type="text" name="title" className="input" placeholder="e.g. Wireless Headphones" value={formData.title} onChange={handleInputChange} required />
@@ -342,7 +434,7 @@ const AdminDashboard = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wide">Price (₹)</label>
                     <input type="number" name="price" className="input" placeholder="99,900" value={formData.price} onChange={handleInputChange} required />
@@ -400,9 +492,9 @@ const AdminDashboard = () => {
                   <textarea name="description" className="input min-h-[120px]" placeholder="Tell us more about the product..." value={formData.description} onChange={handleInputChange} required />
                 </div>
 
-                <div className="pt-4 flex gap-4">
-                  <button type="button" onClick={() => setShowAddModal(false)} className="btn btn-secondary shadow-none hover:shadow-none flex-1 py-3 text-lg">Cancel</button>
-                  <button type="submit" className="btn btn-primary shadow-none hover:shadow-none flex-1 py-3 text-lg font-bold">
+                <div className="pt-4 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <button type="button" onClick={() => setShowAddModal(false)} className="btn btn-secondary shadow-none hover:shadow-none flex-1 py-3.5 text-base md:text-lg order-2 sm:order-1">Cancel</button>
+                  <button type="submit" className="btn btn-primary shadow-none hover:shadow-none flex-1 py-3.5 text-base md:text-lg font-bold order-1 sm:order-2">
                     {editingProduct ? 'Save Changes' : 'Create Product'}
                   </button>
                 </div>

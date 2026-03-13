@@ -35,7 +35,7 @@ const getProducts = async (req, res) => {
         }
 
         // Sorting Logic
-        let sortQuery = { createdAt: -1 }; // Default: Newest
+        let sortQuery = { createdAt: 1 }; // Default: Oldest First
         if (req.query.sort === 'priceLow') {
             sortQuery = { price: 1 };
         } else if (req.query.sort === 'priceHigh') {
@@ -44,6 +44,8 @@ const getProducts = async (req, res) => {
             sortQuery = { ratings: -1, numReviews: -1 };
         } else if (req.query.sort === 'newest') {
             sortQuery = { createdAt: -1 };
+        } else if (req.query.sort === 'oldest') {
+            sortQuery = { createdAt: 1 };
         }
 
         const count = await Product.countDocuments({ ...query });

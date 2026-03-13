@@ -13,7 +13,7 @@ const Home = () => {
     <AnimatedPage>
       <div className="space-y-16 md:space-y-24 pb-24">
         {/* Simple & Clean Hero Section */}
-        <section className="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden rounded-[2.5rem] mt-4 bg-slate-900">
+        <section className="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] mt-4 bg-slate-900 mx-1 md:mx-0">
           <div className="absolute inset-0 opacity-40">
             <img 
               src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070" 
@@ -28,15 +28,15 @@ const Home = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl md:text-7xl font-bold text-white leading-tight mb-6 mt-10 md:mt-0">
+              <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold text-white leading-tight mb-6 mt-10 md:mt-0">
                 Modern Shopping <br />
                 Made <span className="text-primary-400">Simple.</span>
               </h1>
-              <p className="text-base md:text-lg text-slate-300 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-sm md:text-lg text-slate-300 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">
                 Discover our curated collection of high-quality products. We focus on design, functionality, and your satisfaction.
               </p>
               <div className="flex justify-center gap-4">
-                <Link to="/products" className="btn btn-primary px-10 py-4 text-lg">
+                <Link to="/products" className="btn btn-primary px-8 md:px-10 py-3 md:py-4 text-base md:text-lg">
                   Shop All Products <ArrowRight size={20} />
                 </Link>
               </div>
@@ -74,14 +74,14 @@ const Home = () => {
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="animate-pulse bg-slate-100 rounded-3xl aspect-[4/5]" />
+                <div key={i} className="animate-pulse bg-slate-100 dark:bg-slate-800 rounded-3xl aspect-[4/5]" />
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-              {products.slice(0, 4).map((product) => (
+            <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+              {products.slice(0, 5).map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}
             </div>

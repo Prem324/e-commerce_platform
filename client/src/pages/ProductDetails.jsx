@@ -91,18 +91,18 @@ const ProductDetails = () => {
 
           {product.stock > 0 && (
             <div className="space-y-6 mb-12">
-              <div className="flex items-center gap-6">
-                <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800 overflow-hidden">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6">
+                <div className="flex items-center justify-between sm:justify-start border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800 overflow-hidden">
                   <button 
                     onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                    className="p-3 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    className="p-4 sm:p-3 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     <Minus size={18} />
                   </button>
-                  <span className="px-6 py-2 font-bold text-slate-900 dark:text-white text-lg min-w-[3rem] text-center">{quantity}</span>
+                  <span className="px-6 py-2 font-bold text-slate-900 dark:text-white text-lg min-w-[3.5rem] text-center">{quantity}</span>
                   <button 
                     onClick={() => setQuantity(q => Math.min(product.stock, q + 1))}
-                    className="p-3 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    className="p-4 sm:p-3 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     <Plus size={18} />
                   </button>
@@ -110,7 +110,7 @@ const ProductDetails = () => {
                 
                 <button 
                   onClick={handleAddToCart}
-                  className="btn btn-primary flex-grow py-4 text-lg font-bold"
+                  className="btn btn-primary flex-grow py-4 text-lg font-bold shadow-lg shadow-primary-500/20"
                 >
                   <ShoppingCart size={22} />
                   <span>Add to Cart</span>
