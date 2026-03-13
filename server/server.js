@@ -9,6 +9,12 @@ dotenv.config();
 // Connect to MongoDB
 connectDB();
 
+// Ensure uploads directory exists
+const fs = require('fs');
+if (!fs.existsSync('uploads')) {
+    fs.mkdirSync('uploads');
+}
+
 const app = express();
 
 // Middleware
