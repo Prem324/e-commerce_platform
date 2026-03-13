@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { ShoppingBag, User, LogOut, Search, Menu, X, Layout, Sun, Moon, Package } from 'lucide-react';
+import { ShoppingBag, User, LogOut, Search, Menu, X, Layout, Sun, Moon, Package, Home, LogIn, UserPlus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
@@ -61,9 +61,13 @@ const Navbar = () => {
         </form>
 
         {/* Nav Links */}
-        <div className="hidden lg:flex items-center space-x-8">
-          <Link to="/products" className="flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors uppercase tracking-wider">
-            <Package size={18} className="text-slate-400 group-hover:text-primary-600" />
+        <div className="hidden lg:flex items-center space-x-6">
+          <Link to="/" className="flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors uppercase tracking-wider group">
+            <Home size={18} className="text-slate-400 group-hover:text-primary-600 transition-colors" />
+            <span>Home</span>
+          </Link>
+          <Link to="/products" className="flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors uppercase tracking-wider group">
+            <Package size={18} className="text-slate-400 group-hover:text-primary-600 transition-colors" />
             <span>Products</span>
           </Link>
         </div>
@@ -104,19 +108,25 @@ const Navbar = () => {
           {user ? (
             <div className="flex items-center space-x-4">
               <Link to="/dashboard" className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 overflow-hidden border border-slate-200">
+                <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 overflow-hidden border border-slate-200 dark:border-slate-700">
                   {user.avatar ? <img src={user.avatar} alt="" /> : <User size={16} />}
                 </div>
-                <span className="hidden xl:block text-sm font-semibold text-slate-700">{user.name.split(' ')[0]}</span>
+                <span className="hidden xl:block text-sm font-semibold text-slate-700 dark:text-slate-300">{user.name.split(' ')[0]}</span>
               </Link>
-              <button onClick={handleLogout} className="p-2 text-slate-400 hover:text-red-500 transition-colors">
+              <button onClick={handleLogout} className="p-2 text-slate-400 hover:text-red-500 transition-colors" title="Logout">
                 <LogOut size={18} />
               </button>
             </div>
           ) : (
-            <div className="flex items-center gap-1 sm:gap-2">
-              <Link to="/login" className="px-2 sm:px-4 py-2 text-sm font-semibold text-slate-600 hover:text-primary-600">Login</Link>
-              <Link to="/register" className="hidden xs:flex btn btn-primary !px-4 sm:!px-5 !py-2 text-sm flex-shrink-0">Sign Up</Link>
+            <div className="flex items-center gap-1 sm:gap-4">
+              <Link to="/login" className="flex items-center gap-2 px-2 sm:px-3 py-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors group">
+                <LogIn size={18} className="text-slate-400 group-hover:text-primary-600 transition-colors" />
+                <span className="hidden sm:inline">Login</span>
+              </Link>
+              <Link to="/register" className="hidden xs:flex btn btn-primary !px-4 sm:!px-5 !py-2 text-sm flex-shrink-0 items-center gap-2">
+                <UserPlus size={18} />
+                <span>Sign Up</span>
+              </Link>
             </div>
           )}
 
@@ -149,6 +159,17 @@ const Navbar = () => {
             </form>
 
             <div className="flex flex-col space-y-2 mb-6">
+              <Link
+                to="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-primary-600 transition-all"
+              >
+                <div className="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center">
+                  <Home size={20} />
+                </div>
+                <span className="font-bold">Home</span>
+              </Link>
+
               <Link
                 to="/products"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -220,15 +241,17 @@ const Navbar = () => {
                   <Link
                     to="/login"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="h-14 flex items-center justify-center font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-2xl"
+                    className="h-14 flex items-center justify-center gap-2 font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-2xl"
                   >
+                    <LogIn size={20} />
                     Login
                   </Link>
                   <Link
                     to="/register"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="h-14 flex items-center justify-center font-bold text-white bg-primary-600 rounded-2xl shadow-lg shadow-primary-500/20"
+                    className="h-14 flex items-center justify-center gap-2 font-bold text-white bg-primary-600 rounded-2xl shadow-lg shadow-primary-500/20"
                   >
+                    <UserPlus size={20} />
                     Register
                   </Link>
                 </div>
