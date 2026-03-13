@@ -8,10 +8,10 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Brand */}
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-slate-900 dark:bg-primary-600 rounded-lg flex items-center justify-center text-white">
-            <ShoppingBag size={16} />
+          <div className="w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-900">
+            <img src="/logo.png" alt="Logo" className="w-full h-full object-cover p-1" />
           </div>
-          <span className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">E-Commerce Platform</span>
+          <span className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">E-Commerce Platform</span>
         </div>
 
         {/* Links */}

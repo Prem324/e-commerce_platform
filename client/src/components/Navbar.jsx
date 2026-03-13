@@ -39,11 +39,11 @@ const Navbar = () => {
     <nav className={`navbar-container ${isScrolled ? 'shadow-sm bg-white/95 dark:bg-slate-950/95' : 'bg-transparent'} !px-0`}>
       <div className="container mx-auto px-2 sm:px-4 flex items-center justify-between gap-2 md:gap-6">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group flex-shrink-0">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white scale-100 group-hover:scale-110 transition-transform flex-shrink-0">
-            <ShoppingBag size={18} />
+        <Link to="/" className="flex items-center gap-1.5 sm:gap-3 group flex-shrink-0">
+          <div className="w-9 h-9 sm:w-12 sm:h-12 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center overflow-hidden scale-100 group-hover:scale-110 transition-transform flex-shrink-0 shadow-sm border border-slate-100 dark:border-slate-800">
+            <img src="/logo.png" alt="Logo" className="w-full h-full object-cover p-1" />
           </div>
-          <span className="text-sm sm:text-xl font-bold text-slate-900 dark:text-white truncate max-w-[100px] xs:max-w-[120px] sm:max-w-none">E-Commerce Platform</span>
+          <span className="text-[15px] xs:text-sm sm:text-xl font-bold text-slate-900 dark:text-white truncate sm:overflow-visible sm:whitespace-nowrap max-w-[160px] xs:max-w-none sm:max-w-none">E-Commerce Platform</span>
           {/* Debug Indicator - Hidden in production */}
           <span className="sr-only">Current Theme: {theme}</span>
         </Link>
@@ -83,7 +83,7 @@ const Navbar = () => {
 
           <button
             onClick={toggleTheme}
-            className="p-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+            className="hidden sm:block p-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
             title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
             {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
