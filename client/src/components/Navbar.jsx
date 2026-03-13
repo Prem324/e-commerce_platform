@@ -74,7 +74,10 @@ const Navbar = () => {
 
         {/* Actions */}
         <div className="flex items-center space-x-1 sm:space-x-3">
-          <Link to="/cart">
+          <Link 
+            to="/cart" 
+            className={`${cartCount === 0 ? 'hidden lg:block' : 'block'}`}
+          >
             <div className="relative p-2 text-slate-600 hover:text-primary-600 transition-colors">
               <ShoppingBag size={22} />
               {cartCount > 0 && (
@@ -132,7 +135,7 @@ const Navbar = () => {
 
           {/* Toggle */}
           <button className="lg:hidden p-2 text-slate-600" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
+            {isMobileMenuOpen ? <X size={28} strokeWidth={2.5} /> : <Menu size={28} strokeWidth={2.5} />}
           </button>
         </div>
       </div>
