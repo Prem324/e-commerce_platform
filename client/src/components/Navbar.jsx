@@ -103,10 +103,10 @@ const Navbar = () => {
             </Link>
           )}
 
-          <div className="hidden sm:block h-6 w-[1px] bg-slate-200"></div>
+          <div className="hidden lg:block h-6 w-[1px] bg-slate-200"></div>
 
           {user ? (
-            <div className="flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-4">
               <Link to="/dashboard" className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 overflow-hidden border border-slate-200 dark:border-slate-700">
                   {user.avatar ? <img src={user.avatar} alt="" /> : <User size={16} />}
@@ -118,7 +118,7 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            <div className="flex items-center gap-1 sm:gap-4">
+            <div className="hidden lg:flex items-center gap-1 sm:gap-4">
               <Link to="/login" className="flex items-center gap-2 px-2 sm:px-3 py-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors group">
                 <LogIn size={18} className="text-slate-400 group-hover:text-primary-600 transition-colors" />
                 <span className="hidden sm:inline">Login</span>
@@ -132,7 +132,7 @@ const Navbar = () => {
 
           {/* Toggle */}
           <button className="lg:hidden p-2 text-slate-600" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
           </button>
         </div>
       </div>
