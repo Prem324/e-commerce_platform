@@ -39,7 +39,7 @@ const Checkout = () => {
       const { data } = await API.post('/orders', {
         orderItems,
         shippingAddress,
-        paymentMethod: 'Stripe',
+        paymentMethod: 'Cash on Delivery',
         totalPrice: cartTotal
       });
 
