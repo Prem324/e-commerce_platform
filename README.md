@@ -4,18 +4,16 @@
 
 ## 📖 Table of Contents
 
-- [✨ Features](#-features)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [📋 Prerequisites](#-prerequisites)
-- [🚀 Installation & Setup](#-installation--setup)
-- [📂 Project Structure](#-project-structure)
-- [⚙️ Configuration](#️-configuration)
-- [📡 API Endpoints](#-api-endpoints)
-- [🎯 Usage Guide](#-usage-guide)
-- [🔐 Security Features](#-security-features)
-- [📸 Key Features Details](#-key-features-details)
-- [🤝 Contributing](#-contributing)
-- [📝 License](#-license)
+- [Features](#features)
+- [Tech Stack](#️tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation & Setup](#installation--setup)
+- [Project Structure](#project-structure)
+- [Configuration](#️configuration)
+- [API Endpoints](#api-endpoints)
+- [Usage Guide](#usage-guide)
+- [Security Features](#security-features)
+- [Key Features Details](#key-features-details)
 
 ---
 
@@ -183,14 +181,6 @@ npm install
 npm run dev
 
 # The app will be available at http://localhost:5173
-```
-
-### Step 4: Optional - Seed Sample Data
-
-```powershell
-# In the server directory, run the seeder
-cd server
-node utils/seeder.js
 ```
 
 ---
